@@ -1,0 +1,334 @@
+Day 15		Date : 31/07/2020
+================================================
+	( V...IMP Topic )
+
+NORMALISATION :-
+--------------
+
+*	Concept of table design
+*	What tables to create , what structure , columns,
+	datatype ,  width , constraints.
+*	Based on user requirement.
+*	Part of design phase (1/6)
+*	Aim of normalisation is to avoid the Data Redundancy
+	(avoid unnecessary duplication of data)(this is a 
+	westage of HD space)
+
+*	Aim is also to reduce the problem of insert, update, 
+	and delete.
+
+*	Normalisation is done from an input perspective.
+*	Normalisation is done from a forms perspective. 
+
+*	View the entire application on a PER-TRANSACTION
+	basis and then you normalise each transaction Separarely.
+
+
+------------------------------------------------------
+
+ONUM _______		CNAME _______
+
+CNUM _______		CCITY _______
+
+CADDR _______		CMOBNO _______
+
+CPINCODE _______	PRODCD _______
+
+_____________________________________________________________
+| PRODCD	PRODNAME	QTY	RATE	ITEMTOTAL    |
+| ------	---------	---	----	---------    |
+|  P001		Apple iphone11	250	 10	 2500	     | 					
+|  P002		 Laptop		100	 20	 2000	     |	         	     
+|  P003		 Projector	 2      1000	 2000	     |					     
+|							     |
+|						             |
+|____________________________________________________________|
+|							     |
+|						OTOTAL 6500  |
+|____________________________________________________________|						
+
+1. 	Ask user for sample data.
+2. 	for giving transaction , make a list of fields. 
+3. 	For all practical purposes, we can have a single table with all 
+   	these column	
+
+	ONUM
+	CNUM
+	CNAME
+	CADDR
+	CCITY
+	CPINCODE
+	CMOBNO
+	ODATE
+	DELYDATE
+	PRODCD
+	PRODNAME
+	QTY
+	RATE
+	ITEMTOTAL
+	OTOTAL
+
+
+4.	Give a suitable name to the table.
+	Cust_order_table. 
+5.	Remove computed columns.
+6.	Taking the user into confidence , strive for atomicity
+	e.g.	CADDR = Area , Street , plotno etc.
+7.	With the help of user , make a list of Field properties
+	(do this for every field) 
+8.	Get the user sign off.
+9.	End of user interaction.
+10.	Finalize column datatypes and widths
+11.	Finalize not null , unique , and check constraints.
+12.	Key element will be Primary key of this table.
+13.	At this point data is in un-Normalised Form (UNF)
+	(UNF -> Starting point of normalisation)
+
+
+-----------------------------------
+Steps for deciding PK :-
+--------------------
+
+a. Key element will be PK of the table.
+b. if you cannot identify some column then
+   try for composite PK.
+c. if you cannot identify composite pk then  
+   add one extra column to the table to serve
+   the purpose of pk.
+
+-----------------------------------------------------------
+
+1.	Remove the Repeating group into a new table. 
+	(From one table it has been two tables.)
+
+	ONUM			PRODCD
+	CNUM			PRODNAME
+	CNAME			QTY			
+	CADDR			RATE
+	CCITY
+	CPINCODE
+	CMOBNO
+	ODATE
+	DELYDATE
+	
+
+2.	Key element will be pk of new table.
+
+3.	(This step is may or may not be required)
+	Add the pk of original table to the new table
+	to give you a composite pk.
+
+	First Normal form (FNF) (1NF) ->
+		Repeating group are removed from table design.
+		1 : Many Relationship is always encountered here.
+
+
+4. 	Only the tables with composite pk are examine.
+
+	Pk col are known as Key elements
+	And remaining are known as Non-key elements
+
+5.	Those non-key elements that are not dependent
+	on the entire composite pk , they are to be 
+	removed into a new table.
+
+
+	ONUM			ONUM	    -->	PRODCD	
+	CNUM			PRODCD ----/	PRODNAME
+	CNAME			QTY		RATE
+	CADDR			
+	CCITY
+	CPINCODE
+	CMOBNO
+	ODATE
+	DELYDATE
+
+
+6. 	Key element on which originaly dependent,
+	it is to be added to the new table and it
+	will be the pk of new table.
+
+	Second Normal form (SNF)(2NF)  ->
+		Every column is functionally dependent on the 
+		PK(Known as Functional Dependency) 
+
+		Function Dependency(without pk that column cannot funct)
+
+
+7.	Only the non-key elements are examined.
+
+8.	The inter-dependent column are to be removed 
+	into a new table.
+
+9.	Key elements will be pk of new table , and the 
+	pk of new table it is to be added/retained in the 
+	original table for Relationship purposes
+
+	Third Normal Form(TNF)(3NF)  ->
+		Transitive dependencies (inter-dependencies) 
+		are removed from table design.
+
+
+
+
+-------------------------------------------------
+
+4th normal form
+
+*	extension of 3rd normal form
+*	also known as Boyce-Codd NormalForm(BCNF)
+*	Normally used on public network.
+*	Used to protect the accuracy of data.
+
+
+
+De-Normalisation:-
+----------------
+
+*	if the data is large , if the selet are
+	slow you add an extra column to the table and store
+*	used to improve the performance , to improve the
+	speed of SELECT statement.
+*	normally done for computed column,expressions, formual 
+	columns,summary columns , function-based column etc.	
+	e.g.
+	itemtotal = qty * rate
+	Ototal= sum(intemtotal)
+
+*	In some situations you may want to create an extra
+	table altogether and store the totals over there.
+
+	e.g
+	DEPTOT
+	DEPTNO	SALTOT
+	------	------	
+	  1  	 15000
+	  2	  6000
+
+
+========================================================================
+
+********************
+****** NoSQL *******
+********************
+
+
+*	NoSQL Stands for Not only SQL.
+*	SQL is not the only solution or language
+	for database challenges.
+*	types of DBMS(Database Management System)
+*	New Technology
+
+
+History :-
+*	mid 1980s -> Rise of RDBMS
+
+
+Benefits of RDBMS :-
+*	SQL (comman for all RDBMS)
+*	Complex Trancsaction
+*	Reporting tools available
+*	Intergration machansims between applications.
+*	Data Persistence (Read and write Consistency) 
+
+
+Problems with RDBMS model :-
+Impedance Mismatch-> Multiple fields in the memory (RAM)
+work as a single logical unit or sturcture , but at the time
+of saving the data in the databse, the dateils splattered and 
+stored across multiple tables.
+
+*	Mid 1990s
+*	introdunction of OODBMS
+	e.g	Abstract datatype (user-define type)
+
+
+
+Google -->> Bigtable
+
+Amazon -->> Dynamo
+
+Birth of NoSQL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

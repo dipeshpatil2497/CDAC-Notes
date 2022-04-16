@@ -1,0 +1,381 @@
+Day 10	Date : 25/07/2020
+==============================================
+
+
+System supplied Pseudo column :-
+
+ROWID :-
+
+*	select rowid , ename,sal from emp;
+
+*	Stands for row indentifier.
+*	Rowid is the row address, address of row in the DB server harddisk.
+*	This is the acutal physical memory location in the DB server Harddisk
+	where that row is stored.
+*	It's Encrypted string of 18 characters.
+
+*	When you select from a table the order of rows in the ouput will
+	always be in ascending order of row address.
+
+*	No two rows of any tables in the entire DB can have the same rowid
+	rowid works as an unique identifier for every row in the DB.
+
+*	Rowid is the system/mechanism that is used by RDBMS to distinguish
+	between 2 rows in the DB.
+
+*	Practical used of rowid :-
+	
+	1.You can use ROWID to update or delete the duplicates rows in the table.
+        2.To manage row locking	
+	3.To manage indexes.
+	4.to manage cursors.
+	5.Row management
+	etc.
+
+*	Feature of ROWID is available in MySQL and ORACLE.
+*	You can view the rowid in  ORACLE but you cannot view
+	the rowid in MySQL.
+
+======================================================================
+
+MySQL - SQL
+-------------------------------
+*******	ALTER table ***********
+--------------------------------
+
+*	its a DDL commands 
+
+
+	EMP
+
+EMPNO	ENAME	SAL
+-----	-----	---
+ 101	Scott	5000
+ 102	King	6000
+
+
+USES of Alter command:-
+*	rename a table.
+*	add a columns.
+*	drop a column.
+*	increase width of column.
+
+Indirectly :-
+*	reduced width of columns.
+*	change datatype of columns.
+*	copy data from one table to another table.
+*	copy a table.
+*	copy sturcture of table.
+*	change order of columns in the table structure.
+
+
+--------------------------------------------------------
+Rename table name :-
+
+for oracle :-
+rename emp to employees;
+
+
+for MySQL :-
+rename table emp to employee; 
+
+----------------------------------------------
+
+Add column in table :-
+
+alter table emp add  GST float(7,2);
+
+
+*	by default ,it will be add at last. 
+
+---------------------------------------------------
+
+Drop the column:-
+
+alter table emp drop column gst;
+
+-------------------------------------------------
+increase width of column:-
+
+Alter table emp modify ename varchar(30);
+
+-------------------------------------------------
+
+reduced width of column:-
+
+For oracle :-
+alter table emp modify ename varchar(20);
+
+*	It will give error in oracle.
+
+*	You can reduce the width provided the contents are null.
+
+	update emp set ename = null;
+	alter table emp modify ename varchar(20);
+	
+
+In MySQL :-
+
+alter table emp modify ename varchar(20);
+
+*	data will get truncated
+*	For safety purpose, used Oracle soluton.
+-----------------------------------------------------
+
+Copy data from one table to another table :-
+
+
+insert into emp_k
+select *from emp_j;
+
+
+*	Copy data from one table to another table,
+	Stucture of both table has to be same.
+	 
+
+*	to copy specific rows only:-
+	insert into emp_k select *from emp_j where.........;
+	
+-------------------------------------------------------------
+
+to copy table with values:- (for testing purposes)
+
+create table emp_cpoy
+as
+select * from emp;
+
+----------------------------------------
+
+Copy table structure without values :-
+
+
+create table emp_sturct
+as
+select * from where 1 = 2; 
+
+
+------------------------------------------------
+
+rename column :-
+
+create table emp2 
+as 
+select empno ,ename , sal as Salary
+from emp;
+
+drop table emp;
+
+rename table emp2 to emp;
+
+
+-------------------------------------
+
+change order of column :-
+
+*	used for storage consideration  
+	All column those having large no. of NULL in columns,
+	change their position to last 
+
+create table emp2 
+as 
+select  sal , empno ,ename Salary
+from emp;
+
+drop table emp;
+
+rename table emp2 to emp;
+
+---------------------------------------------
+
+************** VV....IMP ********************
+
+MySQL - SQL  
+
+************************************
+***********  INDEXES   *************
+************************************
+
+Indexes: -
+
+*	present in all DBMS , RDBMS , and some of the 
+	Programming langauges also.  
+*	to speed up the serach operation(for faster access)
+*	to speed up SELECT statement with a where clause.
+
+		EMP
+
+ROWID	EMPNO	ENAME	SAL	DEPTNO
+-----	-----	-----	---	------
+ X001 	  5	  A	5000	   1
+ X002	  4	  A	6000	   1
+ X003 	  1	  C  	7000	   1
+ X004 	  2	  D	9000	   2
+ X005 	  3	  E	8000	   2
+
+--------------------------------------------------
+*	In other RDBMS :-
+	we have to use index ind_empno manually.
+ 
+	use index ind_empno;
+	select * from emp where empno=1;
+
+	insert/update/delete..............;
+	REINDEX; (<-- we have to used this command manually)
+
+-------------------------------------------------------------------
+*	In ORACLE and MySQL :-
+	indexes are automatically invoked as and when required
+
+	select * from where empno = 1;
+
+*	indexes are automatically updated in MySQL and ORACLE
+	After all your DML operations.
+----------------------------------------------------------------
+
+* 	duplicates values are stored in an index.
+*	null values are not stored in index.
+*	no upper limit on the no. of indexes per tables.
+
+* 	larger no. of indexes, the slower would be the DML
+	operations.
+*	cannot have a index of text and blob columns.
+
+
+-------------------------------------------------------------
+
+		EMP
+
+ROWID	EMPNO	ENAME	SAL	DEPTNO
+-----	-----	-----	---	------
+ X001 	  1	  A	5000	   1
+ X002	  2	  B	6000	   1
+ X003 	  3	  C  	7000	   1
+ X004 	  	  D	9000	   2
+ X005 	  	  E	8000	   2
+
+
+
+*	If you have two or more independent column in the where clause
+	then you need to create a separate index for each column.
+*	MySQL will use all the necessary indexes as and when required.
+
+
+
+Composite index :-
+---------------
+
+*	You combine 2 or more INTER-DEPENDENT columns in a 
+	single index.
+
+*	INDEX KEY :- columns or set of columns on whose basis the index has been created.
+
+	Primary index key :-  1st col in composite index table.
+	Secondary index key :-2nd col in composite index table.
+
+
+*	In Oracle , you can combine 16 columns in a composite index.
+*	In MySQL , you can combine 32 columns in a composite index.
+
+==========================================================================
+Condition when index should be created :-
+---------------------------------------
+
+1.	Select statement with WHERE clause , ORDER BY clause ,
+	GROUP BY clause , DISTINCT / UNIQUE , UNION , INTERSECT , MINUS.
+
+2.	If select statement retrieves < 25% of table data.
+3.	Primary key and Unique columns should be indexed.
+4.	Common columns in join operations should always be indexed.
+===========================================================================
+Command to create index :-
+-----------------------
+
+create index <indexname> on <tablename>(<columnname>);
+
+e.g.
+create index ind_emp_empno on emp (empno);
+	     -------------
+		indexname
+
+create index ind_emp_ename on emp (ename);
+create index ind_emp_sal on emp (sal);
+	     
+
+*	By default all indexes are in ascending order.
+
+*	But in ORACLE and MySQL , we can choose descending order also.
+	e.g.
+	create index ind_emp_empno on emp (empno desc);
+
+*	Composite index :-
+	create index ind_emp_empno on emp (deptno,empno);
+
+
+
+--------------------------------------------------------------------
+In MySQL:-
+
+*	to see which all indexes are created fo specific table :-
+
+	show indexes from emp;
+
+
+*	to see all the indexes on all the tables in the database:-
+	
+	use information_schema;
+	Select* from statistics;	
+
+
+--------------------------------------------------------------------
+To drop index :-
+-------------
+
+drop index <indexname> on <tablename>;
+
+e.g.
+
+drop index ind_emp_empno on emp;
+---------------------------------------------------------
+Interview ques :-
+******************************************************
+*	IF YOU DROP TABLE/COLUMN THEN THE ASSOCIATED *
+*	INDEXES WILL BE DROPPED AUTOMATICALLY.	     *
+*						     *
+******************************************************
+----------------------------------------------------------
+create unique index :-
+
+create unique index ind_emp_empno on emp (empno);
+
+*	performs one extrafunction i.e. it won't allow the user to
+	INSERT duplicates value in EMPNO.
+
+
+*	at the time of creating the unique index , if you already 
+	have duplicate in the perticular column then MySQL will not
+	allow you to create the unqiue index(this validation is 
+	performed by MySQL at the time of unique index creation)
+
+
+---------------------------------------------------------------------------
+Types of Indexes :-
+----------------
+
+1. Normal Index.
+2. Unique Index.
+3. Clustered Index.
+4. Bitmap Index.
+etc.
+------------------------------------------------------
+
+*******************************************************
+*	MySQL won't allowed you to create more then 1 *
+*	index on one columns unless adding along with *	
+*	another one columns.			      *		
+*******************************************************
+=======================================================
+
+
+
+
+

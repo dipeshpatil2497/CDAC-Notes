@@ -1,0 +1,445 @@
+Day 12		Date : 28/07/2020
+=============================================
+
+MySQL -SQL
+
+System Tables :-
+--------------
+*	store complete information about the database.
+*	63 system table in MySQL.
+*	Stored in information_schema (DB schema)
+*	All System tables are READ_ONLY
+*	DDL for user is DML fro System tables.
+
+
+Stored Object :-
+--------------
+
+*	Objects that are stored in the database.
+*	e.g. tables , indexes
+
+---------------------------------------------------
+Next Stored object:-
+------------------
+
+*******	VIEWS ********
+----------------------
+
+
+	EMP
+------------------------------
+Empno	Ename	sal	Deptno
+-----	-----	----	------
+  1	  A	5000	   1		
+  2	  B	6000 	   1
+  3 	  C	7000	   1
+  4 	  D	9000	   2
+  5 	  E 	8000	   2
+
+
+*	VIEWS are present in all RDBMS and some DBMS(Excel,foxpro,etc..).
+*	A View is a handle to a table.
+*	It stored the address of table.
+*	View is a harddisk pointer.
+*	Used for indirect access to a table.
+
+*	Used for SECURITY purposes.
+*	used to restrict the access of users.
+
+*	used to restrict the column access.
+* 	VIEW doesnot contain data only defination is stored(data is not stored).
+*	VIew is a stored query.
+*	Select statemnt on which the view is based,it is stored in system tables
+	in the COMPILED FORMAT.
+* 	View is an executable format of SELECT statement.
+*	Execution will be very fast.
+*	hinding sourcecode from end user.
+
+*	DML operation can be performed on a veiw
+*	View does not cantain data
+*	view is a HD pointer to the table.
+*	DML operation done on a view will affect the base table
+*	constaints that have been specified on the table , they will
+	be enforced even when insert via the view.
+
+*	used to restrict the row access.
+--------------------------------------------------
+cmd to create a view :-
+-------------------
+
+create view <viewname>;
+
+e.g. 
+create view v1 as select empno , ename from emp;
+
+
+Dipesh_mysql> grant select on v1 to lalit.
+
+Dipesh_mysql> grant select , insert on v1 to lalit.
+
+
+lalit_mysql> select * from Dipesh.emp;		<- ERROR
+
+lalit_mysql> select * from Dipesh.v1;	
+
+lalit_mysql> insert * into Dipesh.v1
+		values(6,'F');
+
+
+--------------------------------------------------
+
+to drop view :-
+------------
+
+Dipesh_mysql> drop view v1;
+
+----------------------------------------------
+VIEW WITH CHECK OPTION :-
+-----------------------
+
+dipesh_mysql> create view v2 as select * from emp where deptno = 1 with check option;
+
+dipesh_mysql> grant select insert on v2 to lata;
+
+lata_mysql> select * from dipesh.v2;
+
+lata_mysql> insert into akshay.v2 values(6,'F',9000,2);
+
+
+
+*	View WITH CHECK OPTION used to restict insert , update and delete
+	as per the where clause.
+*	used to enforce complex check and validations.
+
+-------------------------------------------------------------------------------
+To change select statement of view:-
+-----------------------------------
+
+create or replace view v1
+as
+select ename , sal from emp;
+
+--------------------------------------------
+to see structure of view:-
+
+desc <viewname>;
+
+e.g.	desc v1;
+
+
+-----------------------------------------
+
+*	show tables;
+	it will show table and view but it won't 
+	tell which is which .
+
+
+*	to see which is a table and whichis view :-
+
+	show full tables;
+
+
+
+*	to see the select statement on which the veiw is based :-
+
+	show create view v1;
+
+
+*	If you alter/drop and recreate your table then associated views will have 
+	to be re-created in Mysql.
+*	If you drop table then views REMAIN.	 
+	(you have to drop it separately)
+
+--------------------------------------------------------
+
+VIEW based on VIEW
+
+*	view based on view is allowed.
+*	to exceed the limits of SQL
+	e.g
+	UNION of > 255 SELECTs 
+	Subqueries > 255 levels
+
+*	View based on view
+	to simplify the writing of complex SELECT statements.
+	e.g. join of 20 table.
+
+
+=======================================================================
+
+MySQL - SQL PL
+
+*	product of MySQL
+*	MySQL programming language
+*	Programming lang of MySQL
+*	It is used for server side data processing.
+*	can be called through any front-end software.
+	e.g MySQL Command line client , MySQL Workbench , java,
+	MS .NET , etc.
+*	Support few 4GL features.
+
+*	one program in DB also known as Block
+	hence it is also called "Block level language".
+
+*	Block within a block
+*	No upper limit for sub-block
+
+*	Bebefits of block level language :-
+	A. Modularity.
+ 	B. Control scope of variable (form of encapsulation)
+		(form of data hinding)
+	C. Efficient error Management 
+		(localize the error in the case of Exceptions)
+
+*	inside program , screen i/p and screen o/p is not allowed.
+	(e.g scanf , printf etc not available)
+
+*	USED ONLY FOR PROCESSING.
+
+*	We can used SELECT statement inside the block but it's
+	not recommended
+
+*	SQL commands that are allowed inside MySQL PL:- DDL, DML, DQL , DCL/TCL.
+
+*	DCL command not allowed inside the block.
+
+
+-----------------------------------------------------------------------
+to store output of MySQL PL Program :- we have to create o/p table 
+
+create table tempp	
+(
+fir int (4),
+sec char(15)
+);
+
+---------------------------------------------------
+STORED PROCEDURES :-
+
+*	stored Object
+
+*	Objects that are stored in the database.
+
+*	MySQL PL Program are written in the form of stored Procedure.
+
+*	Routine(set of commands) that has to be called explicity.
+
+*	Global procedures
+
+*	stored in the database in the compiled format.
+
+*	in a multi-user enviroment , if multiple users are calling the same 
+        stored procedure simultaneously , then only a single copy of the procedure
+	code is brought into server RAM , the procedured code will be shared by all the users
+
+*	procedure can have LOCAL variables.
+
+*	inside the procedure , you can have any proccessing 
+	(full MySQL / PL is allowed)  	
+
+*	one procedure can call another procedure
+
+*	procedure can call itselft (Known as recursion)	
+
+*	you can pass parameter to a procedure.
+
+*	OVERLOADING OF STORED PROCEDURES IS NOT ALLOWED.
+
+---------------------------------------------------------------
+delimiter //
+create procedure abc()
+begin 
+
+	insert into tempp values(1,'Hello');
+
+end; //
+
+delimiter ;		 
+
+call abc();
+
+
+drop procedure abc;
+----------------------------------------------------------------
+*	; is known as terminator
+	(denotes of command)
+
+*	; is a default delimiter
+
+	will be still used in procedure defination to just separate the
+	two statement, thatswhy to avoid confusion we used ';' delimiter.
+
+----------------------------------------------------------------
+declear variable in procedure 
+and after initailize it :-
+
+delimiter //
+create procedure abc()
+begin 
+	declare x int(4);
+	set x = 10;
+	insert into tempp values(x,'Hello');
+
+end; //
+
+delimiter ;
+
+
+*	In MySQL,when you declere a variable , if you don't initailize	
+	it , it will store a NULL value
+
+
+call abc();
+
+select * from tempp; 
+--------------------------------------------------------------
+declear variable in procedure 
+with initailization :-
+
+delimiter //
+create procedure abc()
+begin 
+	declare x int(4) default 10;
+	insert into tempp values(x,'Hello');
+
+end; //
+
+delimiter ;
+
+
+------------------------------------------
+
+delimiter //
+create procedure abc()
+begin 
+	declare x char(4) default 'CDAC';
+	insert into tempp values(1,x);
+
+end; //
+
+delimiter ;
+
+----------------------------------------------
+
+delimiter //
+create procedure abc()
+begin 
+	declare x char(15) default 'KING';
+	declare y float(7,2) default 3000;
+	declare z float(2,1) default 0.4;
+	declare hra float(7,2);
+	set hra = y*z;
+	insert into tempp values(y,x);
+	insert into tempp values(hra ,'HRA');
+end; //
+
+delimiter ;
+
+----------------------------------------------
+
+delimiter //
+create procedure abc(x char(15) ,y float(7,2) , z float(2,1))
+begin 
+	
+	declare hra float(7,2);
+	set hra = y*z;
+	insert into tempp values(y,x);
+	insert into tempp values(hra ,'HRA');
+end; //
+
+delimiter ;
+
+
+call abc('KING',3000,0.4);
+call abc('SCOTT',2500,0.3);
+
+-----------------------------------------------
+
+
+	EMP
+---------------------
+ENAME	SAL	JOB
+-----	----	-----
+SCOTT	3000	CLERK
+KING	5000	MANAGER
+
+
+   TEMPP
+------------
+FIR	SEC
+----	----
+
+--------------------------------------------------------------
+
+delimiter //
+create procedure abc()
+begin 
+	declare x int(4);
+	select sal into x from emp where ename = 'KING';
+
+	/*Processing like hrs*/
+
+	insert into tempp values(x,'KING');
+
+end; //
+
+delimiter ;
+
+
+--------------------------------------------------------------
+
+delimiter //
+create procedure abc()
+begin 
+	declare x int(4) 
+	declare y char(15);
+	select sal , job into x,y from emp
+	where ename = 'KING';
+	insert into tempp values(x,y);
+
+end; //
+
+delimiter ;
+
+
+--------------------------------------------
+
+to see which procedure you have created :-
+
+show procedure status ;		
+(shows all created procedure in all database/schema.)
+
+
+show procedure status where db ='Dipesh';
+(shows all created procedure in Dipesh DB/schema only.)
+
+
+show procedure status where name like 'A%';
+(shows all created procedure in all database/schema whose name start with A.)
+
+---------------------------------------------------
+Interview Ques :-
+
+to view the source code of stored procedure:-
+
+show create procedure abc;
+
+---------------------------------------------------
+To grant/revoke procedure to other user:-
+
+Dipesh_mysql> create procedure abc()........;
+
+Dipesh_mysql> grant execute on procedure abc to lalit;
+
+lalit_mysql> call Dipesh.abc();
+	     call (schemaname.procedurename())
+
+Dipesh_mysql> revoke execute on procedure abc from lalit;
+
+
+============================================================================
+
+
+
+
+

@@ -1,0 +1,379 @@
+Day 11		Date :27/07/2020
+=================================================
+
+******	V...IMP  *********
+
+MySQL - CONSTRAINTS
+-------------------
+
+*	It also called Data Integrity
+
+*	Limitation/Restrictions imposed on a table.
+
+
+	   EMP
+
+EMPNO	ENAME	SAL	DEPTNO
+-----	-----	----	------
+  1	  A	5000	   1
+  2	  A	6000	   1
+  3	  C	7000	   1
+	  D	9000	   2
+	  E	8000	   2
+
+
+
+PRIMARY KEY (Primary column)
+
+*	column or set of column that uniquely identifies a row. 
+*	Duplicates values are not allowed(has to be unique)
+*	NULL values are not allowed(this is mandatory column) 
+*	Having primary key is not compulsory , but it's recommended
+	that every table should have a primary key.
+*	Purpose of Primary key is row uniqueness(with the help of 
+	Primary key we can distinguish between two rows of a table.)
+*	Text and Blog cannot be a Primary Key.
+
+*	Unique index is automatically created.
+
+*	You can have only 1 primary key per table.
+
+-----------------------------------------------------------
+COMPOSITE PRIMARY KEY :-
+----------------------
+
+*	Combine 2 or more column together to serve
+	the purpose of Primary key.
+*	In oracle you can combine upto 16 col in a composite Primary Key.
+*	In MySQL you can combine upto 32 col in a composite Primary Key.
+
+
+-----------------------------------------------------------------------------
+
+create table emp
+(
+empno char(4) Primary Key,
+ename varchar(25),
+sal float (7,2),
+deptno int(2)
+);
+
+-----------------------------------------------------
+
+To see All constraints Present in DB:-
+For All DB:-
+
+select * from information_schema.table_constraints;
+----------------------------------------------------
+For Perticular DB :-
+
+select * from information_schema.table_constraints
+where table_schema = 'Dipesh';
+--------------------------------------------------------
+To see which col is have constraints:-
+
+select * from information_schema.key_column_usage
+where table_name = 'EMP';
+
+
+------------------------------------------------------------
+To drop primary key:-
+
+Alter table emp drop primary key;
+
+--------------------------------------------
+To add Primary key after creating table:-
+ 
+alter table emp add primary key(empno);
+
+--------------------------------------------
+To change primary key column:-
+1. drop primary key first
+2. add primary key for new column.
+
+---------------------------------------------
+cmd for Composite primary key :-
+
+create table emp
+(
+empno char(4),
+ename varchar(25),
+sal float (7,2),
+deptno int(2),
+primary key(deptno,empno)
+);
+
+----------------------------------------------------
+
+Types of Constraints :-
+
+*	There are 2 types of constraints:-
+	A. Column Level constaintes (specified on 1 column)
+	B. Table level constraints (sepcified on 2 or more column together)
+	(composite)(has to be specified at the end of the table)
+
+-----------------------------------------------------------------------------
+
+NOT NULL Contraints :-
+-------------------
+
+*	Null values are not allowed.
+*	Duplicates values are allowed.
+*	You can have any number of NOT NULL contraints per table
+	(unlike PK)
+*	You cannot have a composite NOT NULL constraints , you will have
+	to specify separate constarints for each column
+*	Always a column level constraint.	
+
+
+---------------------------------------------
+cmd for NOT NULL :-
+
+create table emp
+(
+empno char(4),
+ename varchar(25) not null,
+sal float (7,2) not null,
+deptno int(2),
+primary key(deptno,empno)
+);
+
+----------------------------------------------------
+
+
+*	In MySQL , nullability is part of the datatype.
+--------------------------------------------------------
+To find out which are the not null column :-
+
+desc emp;
+
+--------------------------------------------------------
+to add not null constarint afterwards:-
+
+alter table emp modify emp varchar(25) not null; 
+
+
+to drop not null constarint afterwards:-
+
+alter table emp modify emp varchar(25) null; 
+
+
+------------------------------------------------
+
+UNIQUE Constraints :-
+------------------
+
+*	Duplicates values are not allowed.
+*	NULL values are allowed. 
+*	Text and Blog cannot be unique. 
+*	unique index is automatically created.
+*	In Oracle , you can combine upto 16 col in a composite unique. 
+*	In MySQL , you can combine upto 32 col in a composite unique. 
+
+----------------------------------------------------------------------
+Interview ques.
+
+Difference bwtween Primary constraints and unique constraints:-
+
+*	You can have any no of unqiue constraints per table.
+	but primery key is only 1 per table.
+ 
+*	In primary key constraints dulpicates and also null values are not allowed 
+	but in unique constraints null values are allowed.
+
+--------------------------------------------------------------------
+
+cmd for unique constraints :-
+
+create table emp
+(
+empno char(4),
+ename varchar(25) not null,
+sal float (7,2) not null,
+deptno int(2),
+ppno char(15) unique,	<-Normal unique
+unique(deptno,empno)	<-Composite unqiue
+);
+
+
+-------------------------------------------------
+
+Foreign Key Constraints :-
+-----------------------
+
+	EMP						Dept
+
+Empno	ename	sal 	dept	MGR		Deptno	Dname	loc	
+-----	-----	----	----	----		------	-----	----
+  1	  A	5000	 1	1		  1	TRN	BBY
+  2	  B	6000	 1	1		  2	EXP	DLH
+  3	  C	7000	 1	1		  3	MKTG	CAL	
+  4	  D 	8000	 2	2
+  5	  E	8500	 2	2
+  6	  F	6000	 2	2
+
+
+*	Foregin column 
+*	column or set of column that reference a column or set of
+	column of some table. 
+
+*	FK constraint is specified on the child column.
+
+*	Parent column has to be primary key or unique.	 
+	(this is pre-requisite for PK)
+
+*	FK column may contain duplicate values(unless sepcified otherwise)
+
+*	FK column may containt null value
+
+*	FK may reference a column of same table also
+	(known as self-referencing)
+
+-------------------------------------------------------------------------------
+cmd for FK:-
+
+create table dept
+(
+deptno int(2) primary key,
+dname varchar(15),
+loc varchar(10)
+);
+
+
+create table emp
+(
+empno char(4) primary key,
+ename carchar(25),
+sal float(7,2)
+deptno int(2),
+mgr char(4),
+constraint fk_emp_deptno foregin key(deptno)
+references dept(deptno),
+constraint fk_emp_mgr foregin key(mgr)
+references emp(empno)			<- self referencing(fk for same table)
+
+);
+
+contraint fk_emp_deptno    -> Optional
+contraint fk_emp_mgr    -> Optional
+
+
+*	column level constraint may be written at table level but a 
+	table level composite constraint cannot be written at column level
+	(except for the Not null constraint which is Always a column level
+	constaint and therefore it must be specified at column level only) 
+
+---------------------------------------------------------------------------------
+interview ques:-
+--------------
+
+delete from dept where dept = 2;
+
+*	you can not delete the parent (master) row when chlid (detail) row exists
+
+
+*	on delete cascade -> if you delete parent row then it will automatically delete 
+				the child rows also.
+
+
+*	To perserve the child row:-	
+				update emp set deptno = null where deptno = 2;
+				delete from dept where deptno = 2;
+
+*	On update cascade :- if you update the parent col then it will update automatially
+				the child rows also.
+
+
+
+To disable/enable the Foreign key constraint:-
+
+for current connection:- set foreign_key_checks = 0; (disable fk)
+			 set foreign_key_checks = 1; (enable fk)
+
+
+for all connection :- 	set global foreign_key_checks = 0; (disable pk)
+			set global foreign_key_checks = 1; (enable fk)
+
+-------------------------------------------------------------------------------
+Check constraint:-
+-----------------
+
+*	Used for Validations(used for checking purposes)  
+		e.g. sal< 10000 , comm <= 40% sal , etc.
+
+
+*	we can used check constraint with :-
+
+	1.Relation optr
+	2.logical optr
+	3.arithmatic optr
+	4.special optr e.g. between , in , like , etc
+	5.signle row funct
+
+------------------------------------------------------
+
+
+create table emp
+(
+empno int (4) auto_increment Primary key,
+ename varchar(25) check(ename = upper(ename)),
+sal float (7,2) default 7000
+check (sal > 5000 and sal < 99000),
+deptno int(2),
+status char(1) default 'T'
+check (status in ('T','P','R')),
+comm float (7,2) not null,
+ppno char(15),
+check(sal + comm < 180000)
+);				<- TABLE LEVEL CONSTRAINT
+
+
+* 	to make use of default value then use the following INSERT Statement :-
+
+	insert into emp (ename, deptno,comm,ppno)
+  	values(............................)
+
+	In above insert statement , we haven't mention  sal column but sill 
+	it will show sal col with 7000 value in each row of table
+	bcoz while creating table we mention "default 7000" value to sal col.
+	so while inserting values in table if we don't mention sal col it will
+	not give an error , it store value 7000 bydefault as we mention while
+	creating table.
+
+*	DEFAULT is not constaints
+*	DEFAULT is a clause that we can use with create table.
+
+=========================================================================
+
+MySQL - SQL - Privileges
+
+*	In Privilegae , Grant and revoke (DCL)
+
+
+Dipesh_mysql> grant select on emp to lalit;  (it will give permission for only see emp table of Dipesh schema to lalit)
+Dipesh_mysql> grant insert on emp to lalit;  (it will give permission for only insert into emp table of Dipesh schema to lalit)
+Dipesh_mysql> grant update on emp to lalit;  (it will give permission for only update into emp table of Dipesh schema to lalit)
+Dipesh_mysql> grant all on emp to lalit;     (it will give permission for all operation on emp table of Dipesh schema to lalit)
+Dipesh_mysql> grant all on emp to lalit , lata;	(it will give permission for all operations on emp table of Dipesh schema to lalit , lata also)
+
+----------------------------------------------------------
+to see the permissions received :-
+
+select * from information_schema.table_privileges ;
+----------------------------------------------------------
+
+*	lalit_mysql> select * from Dipesh.emp;
+
+	Dipesh.emp   -> schemaname.tablename
+
+
+*	lalit_mysql> select * from Dipesh.emp;
+
+*	lalit_mysql> insert into Dipesh.emp values..........;
+
+*	lalit_mysql> delete from Dipesh.emp where...........;
+
+*	lalit_mysql> update Dipesh.emp set...........;
+
+
+=============================================================================

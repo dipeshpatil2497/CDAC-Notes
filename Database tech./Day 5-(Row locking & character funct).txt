@@ -1,0 +1,226 @@
+Day 5	Date : 20/07/2020
+==========================================================
+Row Locking
+
+*	When you UPDATE or DELETE a row , that row is 
+	automatically locked for other users.
+*	When you UPDATE or DELETE a row , that row becomes READ_ONLY
+	for other users.
+*	ROW LOCKING in MySQL and ORACLE in automatic.
+*	Other users can SELECT from that table (they will view the
+	old data before your changes)
+*	other users can INSERT into that table.
+*	other users can UPDATE or DELETE "Other" rows.
+*	No other user can UPDATE or DELETE your locked row , till
+	you have issued a rollback or commit.
+*	LOCKS AUTOMATICALLY RELEASED when you rollback or commit.
+
+*	'OPTIMISTIC ROW LOCKING' -> automatic row locking mechanism 
+	in MySQL and Oracle.
+
+*	'PESSEIMISTIC ROW LOCKING' -> manually lock the rows the table 
+	BEFORE issuing UPDATE or DELETE.
+
+*	To lock the rows manually, you will have to use SELECT statement
+	with the "FOR UPDATE" clause
+	e.g. select * from emp FOR UPDATE;
+*	LOCKS ARE AUTOMATICALLY RELEASED WHEN YOU ROLLBACK OR COMMIT.
+
+
+
+*	Select * from emp where deptno = 10 FOR UPDATE ;   <- by defalut wait.
+
+*	Select * from emp where deptno = 10 FOR UPDATE NOWAIT ; 
+	(NOWAIT :- IF rows are locked by other user then immediatly give error like "Source buzy")
+
+*	Select * from emp where deptno = 10 FOR UPDATE wait 60;
+	(wait 60 :- wait for 60 sec only after 60sec give an error) 
+
+*	WAIT/ NOWAIT options not available in MySQL.	
+
+-------------------------------------------------------------------------
+
+To try out row locking in MySQL Workbench : -
+
+click on Query(menu at the top) -> New tab to current server -> click on it.
+---------------------------------------------------------------------
+
+To abort the opeartion in MySQL workbench :-
+
+click on Query(menu at the top) -> click on "Stop"
+
+=================================================================================
+MySQL - SQL
+
+FUNCTIONS :-
+--------- 
+
+*	It's Routine that returns a value.
+
+*	Readymade functions :-
+		1. Character Function (for char and varchar)
+
+
+Character function :-
+1. Concate funct.
+2. Uppercase funct.
+3. lowercase funct.
+4. initcap funct.
+-----------------------------------------------------------------
+1. concate funct.
+
+*	"concat" funct to join two columns. like fname+lname.
+ 
+*	Select concat(concat(fname,' '),lname) from emp;
+	( Max upto 255 levels for function within function.	
+	  Works in All RDBMS.)
+
+*	Select concat (fname,' ',lname) from emp;
+	(Works in MySQL NOT supported by Oracle)
+
+---------------------------------------------------
+
+2. uppercase funtc.
+
+*	select upper(fname) from emp;
+
+(Note : Don't update table using upper funct.) 
+
+
+*	Case-insensitive query solution for Oracle RDBMS :-
+	Selct * from emp where upper(fname) = 'ARUN';
+
+
+----------------------------------------------------------------
+
+3. lower case funct.
+
+*	select lower(fname) from emp;
+
+(Note : Don't update table using lower funct. thats bad idea) 
+
+
+----------------------------------------------------------------
+
+4. initcap funct.
+
+*	select initcap(ename) from emp;
+
+(Note : INITCAP not supported in MySQL (supported by Oracle)) 
+
+-----------------------------------------------------------------------
+
+lpad and rpad :
+
+*	lpad : left padding .(left justification).
+*	Select lpad (ename,25,' ') from emp;   o/p: "       Arunpandey" 
+	(Used for right justification) 
+
+*	Select lpad (ename,15,'*') from emp;  o/p:("*****Arunpandey")
+
+
+*	rpad : right padding (used for right justification)
+*	select rpad (ename,15,'*') from emp;  o/p : ("arunpandey*****")
+
+*	lpad , rpad are used to convert varchar to char
+
+---------------------------------------------------------------------------
+
+ltrim funct :-
+
+*	ltrim stand for left trim.
+*	it removes blank spaces from leftside.
+*	Output is left justified.
+
+------------------------------------------------------------ 
+
+rtrim funct:-
+
+
+*	rtrim stand for right trim.
+*	it removes blank spaces from right side of char data.
+*	Output is right justification of char data.
+*	it convert char to varchar.	
+
+--------------------------------------------------------------
+
+trim function : -
+
+* 	it will remove blank spaces from both sides in MySQL 
+
+--------------------------------------------------------------
+
+Substr funct :-
+-----------
+
+*	select substr(ename,3 )from emp;
+	(3 is starting position means it will remove 
+	 3rd letter from starting of ename.)
+	e.g "Diesh" it will remove 'p'
+
+
+*	select substr(ename,3,2)from emp;
+	(3 is starting position means it will start removing 
+	  letters ename upto 2 letter, 2 is limit or end point)
+	e.g "Dish" it will remove 'pe'
+
+------------------------------------------------------------------
+replace funct :-
+
+*	select replace(ename ,'un','xyz') from emp;
+*	it will replace 'un' to 'xyz'
+	un -> xyz 
+
+
+-----------------------------------------------------------
+
+translate funct:
+
+*	select translate(ename,'un','xyz') from emp;
+	u -> x   n -> y
+
+*	TRANSLATE is NOT available in MySQL
+	(available in Oracle)
+------------------------------------------------------------
+
+instr funct :-
+-----------
+
+*	select instr(ename,'un') from emp;
+
+*	it will return starting position of string('un').
+
+*	used to check if one sting exits in another string.
+-------------------------------------------------------------------- 
+
+
+	EMP
+ename
+------------------
+arun
+Banerjee
+charlie
+
+
+*	select length(ename) from emp;
+	(it will return length of string.(like arun = 4 , charlie = 7))
+
+*	select asscii(ename) from emp;
+	(it will return ascii value of first character in the string.)
+
+
+*	select ascii('z') from dual ;
+	dual -> is a system table
+	dual-> contains only 1 row and 1 column.
+	dual -> is a dummy table and its present in all RDBMS. 
+	set of System table -> known as DATA DICTIONARY.
+			    -> Known as DATABASE CATALOG.
+
+*	THere are total 63 system tables in MySQL.	
+*	There are total 2000 system table in Oracle 11g.(Oracle is 30 times greater then MySQL.) 
+
+
+======================================================================================================
+
+
+

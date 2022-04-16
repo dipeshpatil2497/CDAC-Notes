@@ -1,0 +1,295 @@
+Day 4	Date : 18/07/2020
+==================================================
+MySQL Command Line Client
+*	Character based
+
+MySQL Workbench 
+*	GUI Based
+
+*	When you install MySQL database s/w , the 'root' 
+	user is automatically created.
+
+*	'Root' user is having DBA(Database Administrator) privileges.
+	e.g create new users, drop users , assign permisions, take backups,etc.
+
+To connect to MySQL Database : -
+*	Open MySQL Workbench
+*	MySQL Connections(click on + sign to create new connection)
+*	Connection name:- Test connection for root user
+*	Connection method(network protocol) :- Standard (TCP/IP)
+*	Hostname :- Server IP address or machine name.
+		    (localhost)
+*	Port:-3306 is the standard port number 
+		(For oracle :- 1521 )
+*	Username : - root
+*	Password : - (Store in Vault.....Push button)
+			click on it -> set password
+			click on okay.
+*	Default schema :- Schema is a synonym for Database
+*	Test Connection(push button): - click on it.
+*	Ok(Push button) :- click on it.
+*	Click on 'close' button.
+
+*	you will see an object Navigator on left side.
+*	You will see a Query window on top and output on bottom.
+
+==================================================================================
+
+Some Basic commands post logon : -
+
+
+show databases;
+
+ctrl+enter -> to execute
+
+to connect to a perticular database :-  use <database name>
+ 
+To see list of users : - Select * from user;
+
+user -> is a System table(63 System tables in MySQL)
+
+Set of System table -> known as DATA DICTIONARY.
+
+*	Store all the usernames
+
+
+TO see tables are created :- show tables;
+
+To see structure of table : -  desc(describe) <tablename>
+				e.g.   desc emp;
+
+
+To create a user : - create user <username> identified by <'password'>;
+		     e.g   create user Dipesh@'%' identified by 'student';
+		     ('%' it means Dipesh user can login from any computer)
+		     (If you want to retrict Dipesh user , enter the name of computer
+		       at place of % , so in which case Dipesh user can only loging from
+			that perticular computer)	
+
+To create database fro Dipesh user :-	create database <databasename>;
+						OR
+					create schema <schemaname>;
+
+
+To grant permissions : -
+
+*	click on 'server'(menu at the top)
+*	click on 'users and Privileges'
+*	Select user that you created from the
+	user account on the LHS.					
+*	Click on 'Administrative roles' from tap menu.
+*	Select 'DBA' Role and click on 'Apply' button.
+*	Click on 'schema privileges' tap.
+*	click on 'Add Entry' button
+*	click on 'selected schema'(Radio button).
+*	select 'Dipesh' schema and click on OK
+*	click on 'Select All' and click on 'Apply'
+*	Exit from MySQL Workbench
+
+*	Open MySQL Workbench 
+	Create a new connection for 'Dipesh' user.
+
+
+======================================================================
+
+
+MySQL - SQL
+
+To print All rows have emp_name starts from 'A' :- 
+
+Select * From emp
+where ename > 'A' and ename < 'B';
+
+its known as 'Blank-padded comparision semantics'
+*	when you compare 2 string of different length , 
+	shorter of the 2 string is temporarily padded with blank
+	spaces on RHS such that their length become equal
+*	then Mysql will do the comparison, chararter by charater ,
+	based on ASCII value.
+
+--------------------------------------------------------
+
+select * from emp
+where ename like 'A%';
+(like :- Like is special operators )
+(% :- Wildcard :- Any charater and any no. of characters)
+
+-------------------------------------------------------------
+For all rows have ename end with charater 'A' like ("Dipika")
+
+select * from emp
+where ename like '%A';
+
+--------------------------------------------------
+for print all rows of ename have 'A' anywhere in the ename   
+
+select * from emp
+where ename like '%A%';
+
+------------------------------------------------
+
+For print names those have 'A' character 3rd from starting like "Akash" (third letter from starting should be 'A')
+
+select * from emp
+where ename like '__%A'; (2 times '_' then letter)
+
+-------------------------------------------------------
+For Print names only have 4 character max in name like ( "Abhi","Sonu","Monu",etc..)  
+
+select * from emp
+where ename like '____';(4 times '_')
+
+--------------------------------------------------------
+For Print name those not end  with letter 'A' 
+
+select * from emp
+where ename not like '%A';
+
+
+-------------------------------------------------------
+
+
+select * from emp
+where sal >=2000 and sal<= 3000 ;
+	OR
+select * from emp
+where sal between 2000 and 3000;
+
+
+('Between' is also special operator)
+('Between' is also increase speed of select statement
+  Bcoz it is already planned or complied in Database )
+
+-------------------------------------------------------------
+
+select * from emp
+where deptno = 10 or deptno = 20 or deptno = 30;
+	OR
+
+select * from emp
+where deptno in (10,20,30);
+("In" :- it is also special Operators)
+('In' is also increase speed of select statement
+  Bcoz it is already planned or complied in Database )
+("In" Operator used instead only '=' and '!=' operator)
+
+
+---------------------------------------------------------------
+
+UPDATE :-
+------
+for update single coloumn :- 
+
+update emp
+set sal = 10000	where emp_no = 1;
+
+NOTE : IF we didn't mention where cluase 
+	then it will set sal for all rows
+	
+	You can UPDATE multiple rows and 
+	multiple columns simulterously, 
+        but you can update only 1 table at a time
+-------------------------------------------
+for update Multiple coloumn :-
+
+update emp
+set sal = 10000 , city = "Pune"	where emp_no = 1;
+
+
+----------------------------------------------
+
+DELETE :-
+------
+
+*	Use for delete Rows from table
+
+delete from emp; (for all rows will be deleted)
+
+delete from emp
+	where empno = 1; 
+
+(About "from" used in above query -> ANSI SQL , it is compulsory in MySQL,
+ optional in Oracle.
+ e.g. delete emp where empno = 1; (it will work in Oracle))
+
+---------------------------------------------------------
+
+Drop :-
+----
+
+Drop table emp; (Rows and table also deleted)
+*	We cannot used Where condition with DROP table
+*	if you want to drop multiple tables , you will have
+	to drop each table separately	
+-----------------------------------------------------------
+
+
+============================================================
+************************************************************
+
+UPDATE and DELETE commands without WHERE clause will not be
+allowed in MySQL Workbench.
+
+************************************************************
+===========================================================
+
+
+If you want to UPDATE or DELETE multiple rows :-
+
+*	click on edit(menu at the top) -> Preference -> SQL Editor
+	-> 'Safe Update'(checkbox at the bottom) -> Uncheck it -> Click on 'OK'
+*	Query (menu at the top) -> Reconnect to Server
+
+================================================================================
+
+SQL - Transaction Processing
+
+Commit :-
+-------
+
+
+*	Commit will save all the DML(insert , update , Delete ) changes since the 
+	last commited state.
+
+* 	When the user issues a commit, it is known as "End of Transaction",
+*	Commit will make the Transaction Permenant. 
+
+*	When you issue the commit , depends on the logical scope of work.
+
+
+*	commit; or commit work;(both we can used)
+	(Work is ANSI SQL , but it is optional in MySQL and Oracle)
+
+*	"ROLLBACK" will undo all the DML changes since the last 
+	commited state.
+
+*	(**IMP) What has been committed, that can't be Rolledback.
+
+*	rollback; or rollback work; (both we can used)
+	(Work is ANSI SQL , but it is optional in MySQL and Oracle)
+
+
+*	Only DML command are affected by rollback and commit.
+*	When you EXIT(in proper way) from SQL, the system automatically commit.
+	e.g exit;(when u run this cmd in Mysql then it will automatically commit)
+	
+*	Any kind of power failure ,network failure , system failure
+	PC reboot , window close , improper exit from SQL, etc.
+	In such cases your last uncommitted transaction is automatically
+	Rolledback
+
+*	Any DDL command , the system automatically commits.
+*	you can rollback to your savepoint.but u can't commit to savepoint
+*	Commit will save all the DML changes since the last committed state.
+*	(**IMP)You can rollback sequentially only.
+
+======================================================================================
+
+
+
+
+
+
+
+
+

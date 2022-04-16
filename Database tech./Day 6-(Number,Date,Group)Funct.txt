@@ -1,0 +1,388 @@
+Day 6     date : 21/07/2020.
+========================================================
+
+Number Function :-
+---------------
+
+
+	EMP
+
+  SAL
+-------------------
+1234.567
+1852.019
+1375.618
+1749.156
+
+
+=======================================================
+
+round function:-
+
+*	select round(sal) from emp;
+	o/p : 1235 , 1852,  etc...
+
+*	select round(sal,1) from emp;
+	o/p : 1234.6 , 1852.0 , etc..
+
+	select round(sal,2) from emp;
+	o/p : 1234.57 , 1852.02 , etc..
+
+
+*	select truncate (sal,0) from emp;
+	o/p : 1234 , 1852 , .etc..
+	(truncate just remove decimal no as it is )
+
+	select truncate(sal,1) from emp;
+	o/p : 1234.5 , 1852.0 , etc..
+
+
+	select truncate(sal,-2) from emp;
+	o/p : 1200, 1800 , etc..
+
+
+
+
+*	ceil -> ceiling
+
+*	Select ceil(sal) from emp;
+	o/p : 1235 , 1853 , etc..
+
+*	floor 
+
+*	select floor(sal) from emp;
+	o/p: 1234 , 1852 ,etc..
+	it is similar to truncate funct.
+	
+
+*sign funct :-
+-----------
+
+*	select sign(-15) from dual;
+	o/p : -1
+
+
+*	used for check whether number is +ve or -ve
+*	it return 1 for +ve no. and return -1 for -ve no
+	and it return 0 if no is 0.
+
+
+
+Mod funct :
+----------
+
+*	Slect mod(9,5) from dual;
+	o/p : 4
+
+
+square root funct:
+ 
+*	select sqrt(81) from dual ;
+	o/p : 9
+
+Power funct :
+
+*	select power(10,3) from dual;
+	O/P : 1000  (it like 10^3 )
+
+*	( ** does not work in sql we can used pwer funct in mysql)
+
+
+absolute funct :
+---------------
+
+*	Select abs(-10) from dual;
+	O/P : 10
+
+*	return the absolute value(it will return a +ve number)
+
+
+----------------------------------------------------------------------
+
+Date Function and Formats :-
+-------------------------
+
+*	it will used in Mysql only.
+	(Oracle date function is totally different)
+
+*	date , Time , datetime , year datatype used.
+
+*	internally date is stored as a fixed-length number.
+	(it occupies 7 bytes of storage.)
+ 
+*	date and time is stored together.
+
+	EMP
+
+    Hiredate
+-----------------
+2019-10-15	00:00:00
+2019-12-31	00:00:00
+2020-03-15	00:00:00
+
+
+
+sysdate() funct:-
+---------------
+
+*	select sysdate() from dual;
+	it will return current date and time
+	when statement executed. 
+	it retrun DB server date and time.
+
+
+*	Select now() from dual;
+	it will return current date and time
+	when statement began to execute. 
+
+*	now() <= sysdate()
+
+*	sysdate() for date and time displays
+*	now() used for maintaining logs of user operations.
+
+
+adddate funct:-
+-------------
+
+*	select adddate (sysdate() ,1) from dual;
+	it will give tomarrow date.
+
+
+*	select adddate (sysdate() ,-1) from dual;
+	it will give yesterday's date.
+
+
+datediff funct :-
+---------------
+
+*	select datediff(sysdate(), hiredate) from emp;
+	it will return numbers of days between 2 dates.
+
+
+
+*	select date_add(hiredate,interval 2 month) from emp;
+	to add month in date
+
+*	select date_add(hiredate,interval 1 year) from emp;
+	to add year in date
+
+*	select last_day(hiredate) from emp;
+	it will last day of month .
+	this funct(last_day) is in MySQL and Oracle only.
+
+
+Dayname() funct:-
+---------------
+
+*	Select dayname(sysdate()) from dual;
+
+*	select addtime ('2020-01-15 10:00:00' , '1') from dual; 
+	(1 is sec)
+	o/p : '2020-01-15 10:00:01'
+
+	select addtime ('2020-01-15 10:00:00' , '01:00:00') from dual; 
+
+
+
+=======================================================================
+
+
+LIST Function (independent of datatype)
+
+
+
+	EMP
+
+Ename	SAL	comm
+--------------------
+  A	5000	500
+  B	6000	NULL
+  c	NULL	700
+
+
+
+*	select * from emp where comm = NULL;
+				-----------
+*	Any comarision done with null, return null
+*	Any operation done with null, return null
+	
+
+*	its known as Pessimistic querying -> serching for null values
+
+*	correct query is :-
+	select * from emp where comm is NULL;
+	
+	(NULL is special opreator)
+
+
+
+
+*	select ifnull(sal,0) + ifnull(comm,0) from emp;
+
+	if sal is null then 		if comm is null then
+		return 0;			return 0;
+	else 				else
+		return sal;			return comm;
+
+
+
+
+*	select greatest (sal , 3000) from emp;
+	it will give sal > 3000 from sal column from emp
+
+
+*	select least (sal ,3000) from emp;
+	it will give sal < 3000 from sal column from emp
+
+
+=================================================================
+
+CASE statement
+
+select case
+when deptno = 10 then 'Training'
+when deptno = 20 then 'Exports'
+when deptno = 30 then 'Sales'
+end DEPTNAME
+from emp;
+
+
+
+========================================================
+
+Environment Functions :-
+---------------------
+
+
+*	select user() from dual;
+	it will show username
+
+*	show character set;
+	43 language in MySQL
+
+===========================================================
+
+Single -row Function :-
+*	operate in 1 row
+*	All the function till now is single -row function.
+
+
+
+
+========================================================
+------------------------------------------------------
+Multi-Rows Functions OR
+Group Functions (Aggregate Funct)
+
+*	Operate on mutliple rows at a time
+
+
+
+		    EMP Table
+
+EMPNO	ENAME	SAL	DEPTNO	JOB	MGR
+--------------------------------------------
+  1	Arun	8000	1	M	4
+  2	Ali	7000	1	C	1
+  3	Kiran	3000	1	C	1
+  4	Jack	9000	2	M	.
+  5	Thomas	8000	2	C	4
+
+(M - 'Manager' , C - 'clerk' , MGR - short form of Manager)
+
+
+
+
+*	Select sum(sal) from emp;
+	it will give an Sum of entire sal column from emp table.
+
+
+*	Select avg(sal) from emp;
+	it will give an average of entire sal column from emp table.
+
+
+*	Select min(sal) from emp;
+	it will give an minimum value from entire sal column from emp table.
+
+
+*	Select max(sal) from emp;
+	it will give an max value from entire sal column from emp table.
+
+
+
+*	Select count(sal) from emp;
+	it will return NO. of rows where sal is not have null value.
+
+
+*	Select count(*) from emp;
+	it will give total no. of rows from emp table.
+
+*	Select count(*) from emp where sal > 7000;
+	it will count no. of rows thats having sal > 7000 and return count of total rows.
+
+-------------------------------------------------------------------------------------------------
+****************************************************************************************
+************************************ VVIMP *********************************************
+****************************************************************************************
+
+(NOTE : If WE USED TWO GROUP FUNCT ALONGWITH EACH OTHER, IT'S OKAY    
+	e.g  select count(ename) , sum(sal) from emp;
+	
+			BUT
+ 			---
+
+	YOU CAN'T USED REGULAR COLUMNS ALONGWITH GROUP FUNCTION.
+         e.g   Select ename , sum(sal) from emp;     
+	   Here ename is regular column and sum(sal) is group funct.
+	It will give error in Oracle but it will work in MySQL but o/p is meaningless)
+
+			AND
+			----
+
+	YOU CAN'T USED SINGLE-ROW FUNCT ALONGWITH GROUP FUNCTION.
+         e.g   Select upper(ename) , sum(sal) from emp;     
+	   Here upper(ename) is single-row funct and sum(sal) is group funct.
+	It will give error in Oracle but it will work in MySQL but o/p is meaningless)
+
+			ALSO
+			----
+
+	YOU CAN'T USED WHERE CLAUSE ALONGWITH GROUP FUNCTION.
+         e.g   Select * from emp where sum(sal) > 5000;     
+	it will give you an error in MySQL and in Oracle also.
+	
+********************************************************************************************
+********************************************************************************************
+********************************************************************************************
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

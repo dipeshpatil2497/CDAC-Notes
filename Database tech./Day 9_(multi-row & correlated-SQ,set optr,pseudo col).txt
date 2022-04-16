@@ -1,0 +1,239 @@
+Day 9	Date : 24/07/1997
+=================================================================
+
+Sub-Query in HAVING clause :-
+--------------------------
+
+
+Select deptno , sum(sal) from emp
+group by deptno
+having sum(sal) = 
+(Select max(sum(sal)) from emp
+  group by deptno ); 
+
+
+DNAME  SUM(SAL)
+-----  -------
+  1	18000
+
+-------------------------------------
+
+Select dname , sum(sal) from emp , dept
+where dept.dept = emp.deptno
+group by dname
+having sum(sal) = 
+(select max(sum(sal)) from emp
+  group by deptno );
+
+
+DNAME	SUM(SAL)
+-----	-------
+ TRN	 18000
+
+---------------------------------------------
+*	Above queries work only in 'Oracle'
+	(bcoz Nesting of 'group' funct allowed in Oracle)
+-------------------------------------------------
+Solution for MySQL :-
+------------------ 
+
+
+Select deptno , sum(sal) from emp
+group by deptno
+having sum(sal) = 
+(Select max(SUM_SAL) from 
+(Select sum(sal) SUM_SAL from emp
+  group by deptno ) as tempp ); 
+
+----------------------------------------------
+
+Select dname , sum(sal) from emp , dept
+where dept.dept = emp.deptno
+group by dname
+having sum(sal) = 
+(select max(SUM_SAL) from
+(Select sum(sal) SUM_SAL from emp  
+group by deptno ) as tempp);
+
+-------------------------------------------------
+
+Multi-row sub-queries :-
+
+(Sub-query returns multiple rows)
+
+
+
+select * from emp 
+where sal =any
+(Select sal from emp
+  where job ='M');
+
+
+*	'Any' is perform like logical 'OR' operator.
+-------------------------------------------------
+
+
+select * from emp 
+where sal in
+(Select sal from emp
+  where job ='M');
+
+('in' is faster than 'any' bcoz 'any' operator 
+   requried extra relational operator(> , < , =,!=))
+
+*	Any is More powerful then IN operator
+*	With IN operator , we can only check for 'IN' or 'NOT IN'
+*	With ANY opertor , we can check for =ANY , !=Any , >ANy ,
+	>=Any, < Any , <= Any.
+*	if you want to check for equality or inequality , use the 'IN' Operator.
+*	If you want to check for > ,>=,<,<= then use the 'ANY' Operator.
+-------------------------------------------------------------
+
+Select * from emp
+where sal > ALL
+(select sal from emp
+ where job ='M');
+
+*	'ALL' is perform like Logical 'And' operator. 
+
+------------------------------------------------------------
+
+
+To speed up sub-quries:-
+
+*	Join is faster than sub-query.
+*	try to reduce no. of levels for sub-queries.
+*	try to reduce no. of rows returned by sub-queries.
+
+
+------------------------------------------------------------------
+	(******* V..IMP *******)
+
+Co-related Sub-query :-
+-------------------- 
+
+(Using EXISTS Operator)
+
+
+*	if you have 'join' , along with distinct , to make it work faster , 
+	use correalted sub-query (use the EXISTS operator) :-
+
+*	select dname frm dept where exists
+	(Select deptno from emp where dept.deptno = emp.deptno);
+
+	First the main query is executed
+	for every row returned by main query , it will run the sub-query once.
+	the sub-query return boolean TRUE OR FALSE value back to main query.
+	if sub-query return TRUE value then main query is eventually executed for that row. 
+	if sub-query return FLASE value then main query is  not executed for that row. 
+
+
+
+*	unlike earlier , we don't use DISTINCT here , hence no sorting take place,this speed it up
+*	unlike earlier , the no. of full table scans is reduced,this further speed it up.
+
+
+*	select dname frm dept where NOT exists
+	(Select deptno from emp where dept.deptno = emp.deptno);
+
+	It will act like opposite of Exists.
+	if sub-query return TRUE value then main query is Not executed for that row. 
+	if sub-query return FLASE value then main query is executed for that row. 
+
+
+
+-------------------------------------------------------------------------------------------------
+
+SET Operator :-  (based on set theory)
+------------
+
+    EMP1		     EMP2
+
+EMPNO	ENAME		EMPNO	ENAME
+-----	-----		-----	-----
+  1	  A		  1	  A
+  2       B		  2	  B
+  3	  C		  4	  D
+			  5	  E
+
+
+
+Select empno , ename from emp1
+union 
+Select empno , ename from emp2;
+
+
+*	Union is combine two select and suppressed duplicates.
+*	If you want to use union ,then the sturcture of both the 
+	SELECT has to be same
+------------------------------------------------------
+	
+Select empno , ename from emp1
+union all 
+Select empno , ename from emp2;
+
+
+union all -> will combine output of both SELECTs and
+	     the duplicates are not suppressed.	
+
+--------------------------------------------------------
+
+Select empno , ename from emp1
+intersect 
+Select empno , ename from emp2;
+
+
+intersect -> will return what is common in both SELECT and 
+	     duplicates are suppressed.
+
+
+-----------------------------------------------------------
+
+Select empno , ename from emp1
+minus 
+Select empno , ename from emp2;
+
+
+minus : - will return what is present in 1st select and not present in 2nd select and
+	  duplicates are suppressed. 
+ 
+-----------------------------------------------------------------------------------
+
+*	Union , union all will work in all RDBMS.
+*	Intersect , minus are not supported by MySQL.
+*	Multiple select statement separated by set Operator then 
+	brackets for nesting/precedence are not supported by MySQL.
+-----------------------------------------------------------------------------------
+
+SQL - Pseudo columns :-
+--------------------
+
+*	Fake columns(virtual columns)
+	e.g
+	a. Computed columns (ANNUAL = sal*12)
+	b. Expressions (NET_EARNING = sal+comm)
+	c. Function-based columns (COMPANY_TOTAL = sum(sal)) 
+
+
+System Supplied Pseudo Columns :-
+
+
+*	select rownum , ename , sal from emp;
+	(rownum is a  system supplied pseudo column)
+	(rownum is show Sr.no. columns along with ename and sal)
+
+*	select rownum , ename , sal from emp
+	order by ename;
+
+
+*	select rownum, ename ,sal from
+	(select ename , sal from emp
+	order by ename);
+
+=================================================================================================
+INLINE VIEW  -> if you use sub-query in the FROM clause , it is known as InLine View.
+
+*	ROWNUM is not available in MySQL.
+*	ROWNUM is available in Oracle and you can view it.
+
+=================================================================================================

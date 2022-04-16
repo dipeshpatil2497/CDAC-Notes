@@ -1,0 +1,71 @@
+Day 3	Date : 17/07/2020
+==========================================================================
+
+WHERE clause :-
+
+Select * from emp where sal >2000;
+======================================================
+Alias :-
+select emp_name as E_NAME from emp;
+
+==========================================================
+
+To neglect the duplicate from coloumn :-
+
+Select distinct job from emp;
+select unique job from emp;
+
+
+*	UNIQUE is a synonym for DISTINCT
+*	DISTINCT is comman for all RDBMS
+*	UNIQUE works only in Oracle RDBMS 
+
+===========================================================
+
+In DBMS , data is stored in sequentially manner.
+Bcoz in DBMS data stored in file.
+
+In RDBMS , row is scatterd (fragment) all over DB Server harddisk.
+Bcoz in RDBMS data stored in table.(this is common for all RDBMS)
+
+When you upadte a row , if the row length is increasing, then the
+entire row may be moved to some other address(it's only case of VARCHAR)
+
+
+===================================================================
+
+ORDER BY clause :-
+
+e.g	Select * from emp order by emp_name; (For asending)
+
+	Select * from emp order by emp_name desc;(For Desending)
+
+	
+
+*	Used for Sorting based in ASNII value
+*	asc for asending order (by default)
+*	desc for decending order
+
+*	ORDER BY sorting used for Presentation Purposes. 
+*	Sorting is one operation that always slows down
+	the SELECT statement.
+*	Sorting is take place in server RAM.
+
+*	We can also used Alise in ORDER BY clasue.
+*	ORDER BY clause is the Last clause in select statement.
+
+
+*	Select * from emp order by 2;
+	(2 is column no. in table )
+	(we can order column by giving no of column in the table also)
+
+* 	Select * from emp where deptno = 10 order by e_name;
+	(WHERE clause is specified BEFORE the ORDER BY clause)
+
+
+
+
+
+
+
+

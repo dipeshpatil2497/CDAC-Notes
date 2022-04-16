@@ -1,0 +1,329 @@
+Day 7    Date : 22/07/2020
+=======================================================
+
+GROUP BY clause :-
+--------
+
+*	used for grouping.
+*	WHERE clause used searching.
+*	ORDER BY clause used for sorting(presentation purposes)
+
+-------------------------------------------------------------------
+Rules of GROUP BY clause :-
+-------------------------
+
+#1 -> Besides the group function , whicherver column is present in
+      SELECT clause , it has to be present in group by clause
+
+
+*	Select deptno , sum(sal) from emp;
+	It will give an error in oracle , works in mysql but output is meaningless.
+
+*	Select deptno , sum(sal) from emp group by deptno ;
+	It will work in both mysql and oracle.
+
+
+#2 -> Whichever column is present in 'GROUP BY' clause it May or May not be 
+      Present in 'select' clause.
+
+--------------------------------------------------------------------------------------  
+
+**********************************************************************************
+2D Query  -> Any Select statement with a 'group by' clause is known as a 2D query.
+	      Bcoz you can plot a graph from the output.
+**********************************************************************************
+
+(Best software in world to plot graph is 'Oracle Graphics')
+
+
+
+-------------------------------------------------------------------
+**	'Where' clause with 'group by' clause :-
+
+*	Select deptno , sum(sal) from emp where sal > 7000 group by deptno;
+	'Where' clause should be defined before 'group by' clause. 
+	
+============================================================================
+*	select deptno , job , sum(sal) from emp group by deptno , job;
+
+
+*	Position of columns in 'SELECT' Clause nd the position of columns in 'GROUP BY' clause ,
+	need not be the same.
+*	Position of columns in SELECT clause will determine the position of columns in the 
+	output (you shall determine the position of columns in SELECT clause as per user requirements).
+*	The position of columns in 'GROUP BY' clause will determine the sorting order , grouping order , summation order ,
+	ans hence the speed of processing.
+
+
+select.................................
+group by city , country , district , state ; 		<- SLOW
+
+
+select................................
+group by country , state , district , city;		<- FAST
+
+
+---------------------------------------------------------------------------
+
+
+* HAVING Clause : - 
+
+Select deptno , sum(sal) from emp
+group by deptno
+having sum(sal) > 17000;
+
+
+*	'Having' clause works After the summation
+*	 'Group function' is only used in 'Having' clause. 
+
+
+---------------------------------------------------------------
+
+
+*******************************************************************
+Work in Oracle only : -
+
+
+*	Select  max(sum(sal)) from emp group by deptno;
+		-------------
+
+*	Nested of 'Group funct' is supported in Oracle RDBMS only
+	Not Supported even in MySQL and also in any other RDBMS.	
+
+
+
+
+solution for above Query for Mysql :-
+
+*	select max(sal_sum) from (Select  sum(sal) sal_sum from emp group by deptno) as tempp;
+
+*	but it will slow down the process speed bcoz in above statement 
+	we are using two SELECT clause.
+	(As per the NO. of 'Select' clause increases, processing speed will decreses. )
+
+=========================================================================================
+
+JOINS : -
+-----
+*	TO view/combine the columns of 2 or more tables.
+
+*	DATA REDUNDANCY :- Unnecessay duplication of data
+			   (leads to wastage of DB Harddisk space)
+
+
+	Dept table
+
+DeptNo		Deptname	Location
+  1		   TRN		   BBY
+  2		   EXP		   DLH
+  3		   MKTG		   CAL
+
+
+
+----------------------------------------------------------
+
+*	select dname , ename from emp , dept where dept.deptno = emp.deptno; 
+
+*	dept.deptno  ->  tablename.columnname
+	
+	dept  -> driving table.
+	emp  -> driven table.
+	it determined wrt FROM clause.
+
+*	In order for the JOIN to work FAstER, Preferably the Driving table
+	Should be table with "LESSER" no. of rows.
+
+
+
+--------------------------------------------------------------
+JOIN with GROUP BY clause :-
+-------------------------
+
+*	select dname , sum(sal) from emp , dept where dept.deptno = emp.deptno group by dname;
+
+----------------------------------------------------------------------------------
+
+Types of Joins :-
+--------------
+
+1. Equijoin :- (also known as Natural join)
+*	Join based on equality condition ('=')
+	e.g. select dname , ename from emp , dept where dept.deptno = emp.deptno; 
+
+*	shows matching rows of both the table
+*	Most Frequently used join (more than 90%)
+	hence it is also known as Natural join.
+
+
+2. Inequijoin :-(also known as Non-Equijoin)
+
+*	Join based on inquality condition('!=')
+ 	e.g. select dname , ename from emp , dept where dept.deptno != emp.deptno; 
+
+*	shows non-matching rows of both the table
+*	Used in EXCEPTION REPORT.
+
+
+3. Outerjoin
+
+*	Shows matching rows of both table + non-matching rows of 'Outer' table.
+	('Outer table' :- table which is outer side of (+) sign or table which is opposite side of (+) sign) 
+
+
+*	Select dname, ename from emp , dept where dept.deptno = emp.deptno (+); 
+	(In above query 'dept' is outer table) 
+
+
+----------------------------------------------------------------------------------
+**********************************************************************************
+*										 *
+*	'Dept' table is 'PARENT' table or 'INDEPENDENT' table or 'MASTER' table. *
+*	'emp' table is CHILD table or 'DEPENDENT' table or 'DETAILS' table.      *
+*										 *
+**********************************************************************************
+----------------------------------------------------------------------------------
+
+*	used in Master-Details Report(Parent-child Report) 	
+
+
+------------------------------------------------------------------------------------------------------
+TYPES OF OUTER JOIN:-
+
+*	There are two types of 'OUTERJOIN'
+
+	1. HALF-OUTERJOIN(which means '(+)' sign on any one side of 'where' clause)
+	
+	half-Outerjoin also have two types :-
+		I. Right Outerjoin :-
+		   (Which means '(+)' sign is on right side of 'WHERE clause') 
+		    Shows matching rows of both table + non-matching rows of 'Outer' table (left side table).
+		
+		II. Left Outerjoin :-
+		    (Which menas '(+)' sign is on left side of 'WHERE' clause)
+		     Shows matching rows of both table + non-matching rows of 'Outer' table.(right side table)
+
+
+	2. FULL OUTERJOIN (which means '(+)' sign on  both side of 'where' clause )
+	(But it is not supported in any RDBMS. it is only therotical type of outerjoin no used  practically)
+	
+
+*	Select dname, ename from emp , dept where dept.detno = emp.deptno (+);      <-- Right outerjoin   <-| 
+												type        |	
+  	 											  	    |<--Half outerjoin	    			
+*	Select dname, ename from emp , dept where dept.detno (+) = emp.deptno ;     <--- Left outerjoin	    |		type
+												type      <-|
+
+
+*	Select dname, ename from emp , dept where dept.detno (+) = emp.deptno (+) ; 	<--- FULL outerjoin type
+	
+	Above statement will give an error , so the solution for this is use 'union'.
+
+	Like : 
+
+		Select dname, ename from emp , dept where dept.detno = emp.deptno (+)
+			
+		union
+
+		Select dname, ename from emp , dept where dept.detno (+) = emp.deptno; 
+
+*	UNION :- It will Combine Output of both the select, suppresed the duplicate And
+	give matching + non-matching rows from both the tables.
+
+--------------------------------------------------------------------------------------------
+*	ANSI Syntax for FULL Outer join :-
+
+	Select dname , ename from emp full outer join dept
+	on (dept.deptno = emp.deptno);
+
+*	Supported by all RDBMS EXCEPT for MySQL.
+*	To achieve Full outer join in Mysql , used union with
+	ANSI syntax of right Outerjoin and ANSI syntax of Left Outerjoin.
+
+	e.g. 
+		Select dname , ename from emp right outer join dept
+		on (dept.deptno = emp.deptno)
+		union
+		Select dname , ename from emp left outer join dept
+		on (dept.deptno = emp.deptno);
+
+---------------------------------------------------------------------
+*	ANSI Syntax for Right Outer join :-
+
+	Select dname , ename from emp right outer join dept
+	on (dept.deptno = emp.deptno);
+
+*	Supported by all RDBMS including MySQL.
+---------------------------------------------------------------------
+*	ANSI Syntax for Left Outer join :-
+
+	Select dname , ename from emp left outer join dept
+	on (dept.deptno = emp.deptno);
+
+*	Supported by all RDBMS including MySQL.
+---------------------------------------------------------------------
+inner join :- Dont mention in interview ,unless asked
+inner join :- By default, every join is inner join , putting (+) sign
+	      	 Makes it outer join.
+
+
+--------------------------------------------------------------------------
+
+4. Cartesian Join :-
+
+*	Also Known as Cross join.
+
+*	select ename , dname from emp,dept;
+
+*	Join without a WHERE condition.
+*	Every row of Driving table is combined with each and every
+ 	row of driven table.
+
+*	used for Printing Purposes
+
+	e.g. 
+	In STUDENT table , you have all the student names;
+	in subject table , you have all the subject names;
+	When you are printing the marksheet for the students ,every
+	student name is combine with each and every subject name.
+
+
+---------------------------------------------------------------------------
+
+5. Self Join :-
+
+*	Joining a table to itself.
+*	used when parent column and child column , both are 
+	Present in the same table. 
+
+*	Select a.ename , b.ename from emp b, emp a
+	where a.mge = b.empno;
+
+*	Self join is slowest join.
+
+*	Cartesian join is the fastest join.
+	bocz there is no where clause involved , 
+	hence there is no searching involved.
+
+----------------------------------------------------------------------
+
+Join 3 or more table:
+
+emp table and dept table are same as earlier.
+
+3rd table is Depthead
+
+  DeptHead
+
+deptno	DHead
+--------------
+  1	Arun
+  2	Jack
+
+
+
+
+select dname , ename, dhead from emp, dept , depthead 
+where depthead.deptno =  dept.deptno and dept.deptno = emp.deptno;
+
+
+*	No upper limit on the number tables that you can join.

@@ -1,0 +1,498 @@
+Day 13		Date : 29/07/2020
+========================================================
+
+My-SQL - PL
+
+
+if statement :-
+-------------
+*	used for decision making.
+
+    EMP
+
+ENAME	SAL
+-----	----
+KING	5000
+
+----------------------------------------------------------------
+delimeter //
+create procedure abc()
+begin 
+	delcare x int(4),
+	select sal into x from emp where ename = 'KING';
+	if x > 4000 then
+		insert into tempp values(x,'High sal');
+	else
+		insert into tempp values(x,'Low sal');
+	end if;
+end; //
+delimeter ;
+------------------------------------------------------------------
+
+if <condition> then
+	...............;
+	....statement..;
+	...............;
+
+else
+	...............;
+	....statement..;
+	...............;
+	
+end if;
+
+---------------------------------------------------------------------
+delimeter //
+create procedure abc()
+begin 
+	delcare x int(4),
+	select sal into x from emp where ename = 'KING';
+	if x > 4000 then
+		insert into tempp values(x,'High sal');
+	else
+		if x < 4000 then
+			insert into tempp values(x,'Low sal');
+		else
+			insert into tempp values(x,'Medium sal');
+	end if;
+end; //
+delimeter ;
+
+------------------------------------------------------------------------
+
+delimeter //
+create procedure abc()
+begin 
+	delcare x int(4),
+	select sal into x from emp where ename = 'KING';
+	if x > 4000 then
+		insert into tempp values(x,'High sal');
+	elseif x < 4000 then
+		insert into tempp values(x,'Low sal');
+	else			
+		insert into tempp values(x,'Medium sal');
+	
+	end if;
+end; //
+delimeter ;
+
+
+*	No upper limit for elseif condition. 
+
+--------------------------------------------------------------------
+
+delimiter //
+create procedure abc()
+begin
+	declare x boolean default TRUE;
+	if x then
+		insert into tempp values(1,'Mumbai');
+	end if;
+end; //
+delimiter ;
+
+
+*	boolean is a logical datatype
+	(store TRUE or FALSE value and NULL also)
+
+----------------------------------------------------------------------
+
+CASE statement :-
+----------------
+
+
+delimeter //
+create procedure abc()
+begin
+	declare x int(4);
+	select sal into x from emp where ename ="King"; 
+	case
+	when x > 4000 then
+		insert into tempp values (x ,'High sal');
+	when x < 4000 then
+		insert into tempp values (x ,'Low sal');
+	else 
+		insert into tempp values (x ,'Medium sal');
+	end case;
+
+end; //
+delimeter ;
+
+
+*	'CASE' statement is FASTER then 'IF' statement but	
+	'IF' is more powerful then 'CASE'(nesting is possible with 
+	IF statement but not supported by CASE statement)
+
+*	In the CASE statement , ELSE is optional.
+
+*	If ELSE is not provided and if none the cases are satisfied then
+	MySQL will give an error message.
+
+*	If you want to skip the else and avoid error msg then you supply
+	ELSE with an empty begin and End block.
+
+	delimeter //
+	create procedure abc()
+	begin
+		case
+		when x > 4000 then
+			insert into tempp values (x ,'High sal');
+		when x < 4000 then
+			insert into tempp values (x ,'Low sal');
+		else 
+			Begin
+			End;
+		end case;
+
+	end ; //
+	delimeter ;
+
+---------------------------------------------------------------
+
+LOOPS :-
+-----
+
+*	Used for repetitive/iterative processing
+
+
+*	While loop
+
+	it always check for some condition before entering the loop. 
+
+	while expression do
+		...................;
+		...................;
+	End while;
+
+---------------------------------------------------------
+delimeter //
+create procedure abc()
+begin 
+	declare x int(4) default 1;
+	while x < 10 do
+		insert into tempp values (x,'in while loop');
+		set x = x+1;
+	end while;
+end ; //
+delimiter ;
+
+-------------------------------------------------
+
+delimeter //
+create procedure abc()
+begin 
+	declare x int(4) default 1;
+	declare y int(4) default 1;
+	while x < 10 do
+		while y < 10 do
+			insert into tempp values (x,'in while loop');
+			set y = y+1;
+		end while;
+		insert into tempp values (x,'in X loop');	
+		set x = x+1;
+	end while;
+end ; //
+delimiter ;
+
+
+------------------------------------------------------------
+
+Repeat Loop :-
+-----------
+
+*	Similar to do while loop
+
+	repeat 
+		.................;
+		.................;
+	Until expression is not satisfied
+	End repeat;
+
+----------------------------------------------------------
+
+delimeter //
+create procedure abc()
+begin
+	delcare x int(4) default 1;
+	repeat
+		insert into tempp values(x,'in loop');
+		set x = x+1;
+	until x > 5
+	end repeat;
+end; //
+delimeter ;
+
+
+*	there is no criteria to enter the loop, but there is a condition to
+	End the loop
+*	it will execute at least once
+
+
+-------------------------------------------------------------------
+
+Loop , leave  and iterate statement :-
+------------------------------------
+
+*	Leave statement allows you to exit the loop (similar to break
+	statement of 'c' programming) 
+
+*	Iterate statement allows you to skip the entire code under it
+	and start a new iteration (similar to continue statement of 'c'
+	programming)
+
+*	Loop statement executes a block of code repeatedly with an
+	additional flexibility of using a loop label.
+
+
+delimeter //
+create procedure abc()
+begin
+	declare x int(4) default 1;
+	pqr_loop:loop
+		if x > 10 then
+			leave pqr_loop;
+		end if;
+		set x = x+1;
+		if mod(x,2)!= 0 then
+			iterate pqr_loop;
+		else
+			insert into tempp values(x,'inside loop');
+		end if;
+	end loop;
+end; //
+delimeter ;
+
+---------------------------------------------------------------------
+
+Session Variables :-
+-------------------
+
+set @x = 10;
+
+*	it will remain in RAM till you exit session.
+
+---------------------------------------------------------------
+
+CURSOR (Most imp) :-
+-----------------
+
+
+		EMP
+--------------------------------------	
+ROWID	Empno	Ename	Sal	Deptno
+-----	-----	-----	------	------
+ X1	  1	  A	5000	   1
+ X2  	  2	  B	6000       1
+ X3  	  3	  C	7000	   1 
+ X4  	  4	  D	9000	   2
+ X5	  5	  E	8000	   2
+
+-------------------------------------------------
+*	Cursors are present in all RDBMS. 
+*	Cursors are present in Some DBMS
+	(e.g MS Excel ,forpro , etc..) 
+*	Cursors are present in some front-end also.
+	(e.g. MS .NET, Powerbuilder , etc.)
+
+*	Cursor is a type of a variable.
+*	Cursor can stored multiple rows.
+*	used for storing multiple rows.
+*	used for handling multiple rows.
+*	used for processing multiple rows.
+*	used for storing data temporarily.
+*	Cursor is similar to 2D array.
+*	cursor based on SELECT statement.
+*	cursor is a READ_ONLY variable
+*	Data that is present inside cursor , it cannot be manipulated.
+*	you will have to fetch 1 row at a time into some intermediate
+	variable and do your processing with those variable.
+*	you can only fetch sequentially(top to bottom)
+*	you cannot fetch backwards in MySQL cursors.
+*	you can only fetch 1 row at a time.
+
+
+
+
+delimeter //
+create procedure abc()
+begin
+	declare pqr cursor for select * from emp;
+end; //
+delimeter ;
+
+---------------------------------------------------------
+
+delimiter //
+create procedure abc()
+begin
+	declare a int(4);
+	declare b varchar(15);
+	declare c int(4);
+	declare d int(2);
+	declare x int(2) default 1;
+	declare c1 cursor for select * from emp;     <- cursor declaretion only,doesn't contain data.
+	open c1;      <- open cursor c1 , it will execute the select statement , and it will populate the cursor.
+	while x < 6 do
+		fetch c1 into a,b,c,d;
+		/*Processing, e.g set hra = c*0.4, etc.*/
+		insert into tempp values (a,b);
+		set x = x+1;
+	end while;
+	close c1;	<-deallocated memory given to cursor in RAM. 
+end ; //
+delimeter ;
+
+
+if x < 4 :-
+	it will fetch first three rows only.
+
+if x < 11 :-
+	it will fetch 5 rows but after that 
+
+	In mysql, it will give an error.
+
+	In Oracle , it will fetch last row(5th row)
+	till while condition become false(till x = 10) 
+
+
+	In DB2 , it will fetch 5 rows and after that
+	it will again start from 1st row till while 
+	condition become false.
+
+
+	sol for this :-
+
+	declare y int(4);
+	select count(*) into y from emp;
+	open c1;
+	while x < y do
+		.............;
+		..............;
+	end while;
+	close c1;
+  
+---------------------------------------------
+
+NOT FOUND handler :-
+-------------------
+
+delimiter //
+create procedure abc()
+begin
+	declare a int(4);
+	declare b varchar(15);
+	declare c int(4);
+	declare d int(2);
+	declare finished int(4) default 0;
+	declare c1 cursor for select * from emp;     
+	declare continue handler for not found set finished = 1;
+	open c1;      
+	cursor_c1_loop:loop
+		fetch c1 into a,b,c,d;
+		if finished = 1 then 
+			leave cursor_c1_loop;
+		end if;
+		insert into tempp values (a,b);
+	end loop cursor_c1_loop;
+	close c1; 
+end ; //
+delimeter ;
+
+
+*	Not found is a cursor attribute, it return a boolean TRUE value
+	if the last fetch was unsuccessful, and a FALSE value if the last
+	fetch was successful.
+
+*	Continue handler has to be declared After the Cursor declaration.
+
+---------------------------------------------------------------------------
+Most IMP Program :-
+-------------------
+
+delimiter //
+create procedure abc()
+begin
+	declare a int(4);
+	declare b varchar(15);
+	declare c int(4);
+	declare d int(2);
+	declare finished int(4) default 0;
+	declare c1 cursor for select * from emp for update;
+	declare continue handler for not found set finished = 1;
+	open c1;      
+	cursor_c1_loop:loop
+		fetch c1 into a,b,c,d;
+		if finished = 1 then 
+			leave cursor_c1_loop;
+		end if;
+		if c > 7000
+			update emp set sal = sal+1 where empno = a;
+		end if ;
+	end loop cursor_c1_loop;
+	commit;
+	close c1; 
+end ; //
+delimeter ;
+
+------------------------------------------------------------
+**********************************************************
+*							 *
+*	Cursor are used for LOCKING the row MANUALLY.	 *
+*							 *
+**********************************************************					
+
+*	Locks are automatically released when you rollback
+	or commit.
+
+
+======================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

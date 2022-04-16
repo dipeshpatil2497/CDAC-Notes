@@ -1,0 +1,70 @@
+What is similarity between Function and Procedure :-
+
+*	Both are the stored object, both are stored 
+	in database in compiled format  .
+*	There is a system table for both so the entire
+	code of both is stored over there.   
+*	Both of them are global. 
+*	They can be called form anywhere.
+*	Both of them can have parameters.
+*	Both of them ,they can't be overloaded.
+*	You can't have two procedure and function
+	with the same name.
+
+
+
+
+
+
+What is Difference between Function and Procedure :-
+
+
+*	Procedure can have IN , OUT , INOUT parameter , whereas in 
+	case of function , funct have only IN parameter.
+
+*	Procedure does not return value unless you call by reference(pass OUT/INOUT parameter) , 
+	whereas in case of function , funct return value directly and compulsorily.
+
+
+*	In the case of procedure , procedure can be called by itself.
+	But funct cannot be called by itself.
+	(bocz funct return a value and that value has to be store somewhere)
+	Hence, funct has to be equated with a variable.( like  set @x = abc(); ) OR
+	it part of some expression.(like  sal = sal + abc(); )
+
+*	STORED FUNCTIONS CAN BE CALLED IN SELECT STATEMENT.  	
+	STORED FUNCTION CAN BE CALLED IN DML COMMANDS ALSO   
+							     	
+	Select abc(10) from dual;			     
+	Select abc(sal) from emp;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

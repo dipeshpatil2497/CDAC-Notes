@@ -1,0 +1,232 @@
+Day 2	Date: 16/07/2020
+=====================================================================
+
+s/w development tools for MySQL :-
+
+SQL
+*	Structured Query Lang
+*	Create , Drop , Alter
+ 	Insert , Update , Delete
+	Grant , Revoke , Select
+*	Conforms to ANSI Standards
+*	Conforms to ISO Standards (QA)
+*	SQL common for all RDBMS
+*	Initially Founded by IBM (1975-77) 
+*	Earlier known as RQBE (Relational Query by Example)
+*	IBM gave RQBE free of cost to ANSI
+*	ANSI renamed RQBE to SQL
+*	now controlled by ANSI(hence common for all RDBMS)
+
+
+
+MySQL Commmand Line Client
+
+*	MySQL Client s/w
+*	Used for running SQL , MySQL commands and MySQL/PL Program
+*	character based
+
+
+
+MySQL Workbench
+*	MySQL Client s/w
+*	Used for running SQL , MySQL commands and MySQL/PL Program
+*	GUI based
+
+
+MySQL/PL 
+*	MySQL Programming Lang
+*	Programming lang from MySQL.
+*	Used for DB Programming.
+*	e.g HRA_CALC , TAX_CALC , ATTENDANCE_CALC
+MySQL connectors
+MySQL for Excel
+MySQL Notifier
+MySQL Enterprise Backup
+MySQL Enterprise High Availability
+MySQL Enterprise Encryption
+MySQL Enterprise Monitor
+MySQL Query Analyzer
+
+etc.
+
+===============================================================================
+
+MYSQL - SQL
+
+*	Structured Query Lang
+*	Commonly pronounced as "Sequel"
+*	Coommon for all RDBMS
+*	Conforms to ASNI (e.g 1char = 1 byte)
+	and ISO Standards (for QA)
+	
+
+4 sub-division of SQL :-
+
+DDL (Data Definiton lang)(Create , Drop , Alter)
+DML (Data Manipulaton lang) (Insert , Update , Delete)
+DCL (Data control lang) (Grant , Revoke)
+DQL (Data Query Lang) (Select)
+
+---------------------------------------------------------------
+Not an ANSI Standard :-
+5th Component of SQL:- 
+
+Extra in MySQL and Oracle RDBMS :-
+
+DTL/TCL (Data Transaction Lang)/(Transaction control lang)
+(commit , Rollback , Savepoint)
+
+DDL (Rename , Truncate)
+---------------------------------------------------
+Extra in Oracle RDBMS only :-
+
+DML (Upsert(Update + insert) , Merge)
+
+============================================================================
+
+Rules for tablenames , columnname , variablename :-
+
+1.	Max 30 characters
+2.	A - Z , a - Z , 0 - 9 allowed
+3.	Has to begin with alphabet
+	(e.g EMP2020 <- allowed , 2020EMP <- NOt allowd)
+4.	Special Character $ , _  are allowed.
+	(e.g. EMP_2020 <- allowed)
+5.	In Oracle, you can also used # in tablename.
+6.	In Mysql , if you want to special character # in tablename ,
+	enclose it in back-quotes(` `)
+	(e.g. `EMP#123`)
+7.	134 Reserved words not allowed in tablename
+	(e.g create , insert ....)
+	(134 words are given in Oracle and MySQL documentation (http://docs.oracle.com))
+
+8.	No limit on no. of rows per table provided
+	table size <=64 Terabytes
+9.	Max 4096 columns per table Provided the row size
+	<= 65,535 Bytes.
+
+===========================================================================================
+
+Data types :-
+
+Char
+*	Fixed Length charcter data
+*	Allows any char
+*	could be alpha-numeric also
+* 	Max upto 255 char
+*	Wastage of Harddisk Space 	
+
+Varchar
+*	Variable length char data
+*	Allows any char
+*	could be alpha-numeric also
+* 	Max upto 65,535 char	
+*	Conserve on Harddisk space
+
+
+Longtext
+*	Variable length char data
+*	Allows any char
+*	could be alpha-numeric also
+* 	Max upto 4,294,967,295 char	
+*	e.g Resume , Experience , Remarks , Comments,etc.	
+
+
+Longblob(Long Binary Large Object)
+*	Allows Binary Data
+*	Max upto 4,294,967,295 bytes of binary data
+*	e.g Photo ,video ,graphs ,maps , music , sound,etc
+*	Its is a multimedia datatype
+
+Int
+Float
+
+Date(range 1st jan 1000 AD to 31st DEc 9999 AD)
+*	default date formate is 'YYYY-MM--DD'
+
+
+Time
+*	default format is 'hh:mm:ss' or 'HHH:MM:SS'
+*	Time values may range from '-838:59:59' to '838:59:59'
+
+DateTime
+	(date and time is store together)
+*	default format is 'YYYY-MM-DD HH:MM:SS'
+*	range(1000-01-01 00:00:00 to 9999-12-31 23:59:59)
+
+Year
+*	Format 'YYYY'
+*	Range(1901 to 2155)
+etc.
+
+
+
+====================================================================================
+
+Commands : 
+
+1.create table :
+
+create table Emp
+(
+emp_id char(4),
+emp_name varhar(25),
+emp_SAL float (7,2),
+emp_Loc varchar(20),
+emp_dob date
+
+);
+
+NOTE : ';' is terminator
+
+
+
+2.insert row :
+
+insert into Emp
+values('1','King',5000,'Mumbai','1990-10-15'); 
+
+
+
+insert into Emp(empID , emp_SAL , ename , city , dob)
+values('2', 6000 , 'jack' ,'delhi' , '1986-12-20');
+
+
+
+3. Select (TO show the values of tables)  
+
+select * from emp;
+
+
+====================================================================================
+
+Lab session 	Day 2
+
+
+Rule's of Codd's :-
+
+1. Strong Entity : we will include all simple attribute of 
+		   that table.
+2. weak Entity :- simple Attribute of weak entity + add primay key of associated strong entity.
+
+
+(foreign key fk : this is key which create relatonship between two table.)
+
+3. Multiplicity :-  
+	 i. 1 to Many Relation : Add PK of 1 wala table as foreign key in "Many" wala table.
+	ii. Many to Many Relaton : Create differnet table of relation with Fk of strong entity. 
+				
+4. Multi-valued Attribute : create separate table for multi-value attribute with primay key of that table as fk in new table. 
+
+
+
+
+
+
+
+
+
+
+
+
+

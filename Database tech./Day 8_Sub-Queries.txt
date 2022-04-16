@@ -1,0 +1,96 @@
+Day 8 	Date : 23/07/2020
+
+==========================================================
+
+Types of Relationship : -
+
+1.	1 : 1 (one to one)	
+	(dept : depthead) or (depthead : dept)
+--------------------------------------------------
+2.	1 : Many(one to many)	
+	(dept : emp)(one dept have many emp) or 
+	(depthead : emp)(one depthead can have many emp under him)
+----------------------------------------------------------
+3.	Many : 1 (many to one)
+	(emp : dept)
+	(emp : depthead)
+----------------------------------------------------------
+4.	Many : Many(many to many)
+	(projects : emp) (Many project can have many emp)
+	(emp : Projects)(Many emp can have many project)
+
+*	INTERSECTION table -> required for 'many : many' Relationship
+------------------------------------------------------------------------------
+	VV....IMP  TOPIC 
+******************************
+	SUB-QUERIES 
+********************************
+
+
+*	Sub-queries(Nasted Queries)
+	(query within query)(Select within Select)
+
+
+*	Display ename who's receiving the min(sal) : -
+
+	Select ename from emp		<-- main query (Parent Query OR Outer query) 
+	where sal  = 
+	(select min(sal) from emp);	<-- Sub-query(child Query or inner query)
+
+
+*	 Max upto 255 levels for sub-queries.
+
+*	Try to reduce the no. of levels when you are wrinting sub-queries
+	bcoz the more no.of Select's the slower it will be. 
+
+
+
+------------------------------------------------------------------------------------
+*	JOIN IS FASTER THAN SUB-QUERIRS(bcoz join requied only one 'select' clause)
+
+------------------------------------------------------------------------------------
+
+Using Sub-Quries with DML commands :-
+
+-------------------------------------------------
+delete from emp where deptno =
+(Select deptno from emp where ename = 'Thomas');
+
+--------------------------------------------------
+
+
+update emp set sal = 10000 where job =
+(Select deptno from emp where ename = 'Kirun');
+
+--------------------------------------------------
+
+
+*	Above 2 examples of sub-queries with DML commands work in Oracle,
+	(But it will not work  in MySQL)
+
+
+
+*	Solutions for Mysql :-
+
+	
+	delete from emp where deptno =
+	(Select tempp.deptno from(Select deptno from emp where ename = 'Thomas') as tempp);
+	
+
+
+	update emp set sal = 10000 where job =
+	(Select tempp.job from ( Select deptno from emp where ename = 'Kirun') as temp);
+
+
+
+
+	(We can create new temp table from that table we can upadte or delete emp table)
+
+
+
+*	In MySQL , you cannot UPDATE or DELETE from table from which
+	you are currently selecting.
+
+
+=======================================================================================================
+

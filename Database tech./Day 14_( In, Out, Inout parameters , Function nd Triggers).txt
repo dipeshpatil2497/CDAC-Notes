@@ -1,0 +1,487 @@
+Day 14		Date : 30/07/2020
+=========================================================
+
+MySQL - PL
+
+Procedure - Parameter
+----------------------
+
+
+Parameters are of 3 types :-
+
+IN :-	(by default)
+----
+
+*	Read Only(Values of parametr cannot be modified inside the
+	procedure)(you cannot assign a value to the parameter inside
+	procedure)
+
+*	you can pass variable, constant , and expression also
+*	Call by value.
+*	In fastest interm of processing speed.
+
+delimiter //
+create procedure abc(in y int(4))
+begin
+	insert into tempp values(y,'Inside abc');
+
+end; //
+delimiter ;
+
+----------------------------------------------------------
+
+OUT :-
+---
+
+*	Write Only (you can assign a value to the parameter inside
+	procedure but you xannot Read from it)
+
+*	you can pass variables only.
+*	call by reference.
+*	Most Secure.
+*	used on public ntwork(internet)
+	(e.g. username , password , OTP ,etc.)
+
+delimiter //
+create procedure abc(out y int(4))
+begin
+	set y = 100;
+
+end; //
+delimiter ;
+
+---------------------------------------------
+
+INOUT :-
+-----
+*	Read and Write
+*	Can pass variable only
+*	call by reference
+*	Most powerful.
+*	it is having best functionality.
+*	Used on local network
+
+
+delimiter //
+create procedure abc(inout y int(4))
+begin
+	set y = y*y*y;
+
+end; //
+delimiter ;
+
+===========================================================
+	( V...IMP Topic )
+
+MySQL - PL
+
+*******************************
+****** Stored Functions *******
+*******************************
+
+*	Stored Object.
+	object that stored in the database known as stored object.
+
+*	its rountine that returns a value directly and compulsorily.
+
+*	Stored in database in the compiled format.
+
+*	Global function.
+
+*	etc. Same as stored procedures.
+
+*	can pass IN parameters ONLY.
+
+
+Functions are of 2 types :-
+1. Deterministic
+2. Not Deterministic
+
+
+*	for the same input parameter, if the function returns the 
+	same result , it is considered deterministic , and otherwise 
+	the function is not deterministic. 
+
+*	you have to decide whether a stored function is deterministic
+	or not 
+
+*	if you declare it incorrectly , the stored function amy produce
+	an unexpected result, or the available optimization is not
+	used which degrades the performance.
+
+
+----------------------------------------------------------------------
+
+delimeter //
+create function abc()
+return int
+deterministic
+begin
+	return 10;
+end; //
+delimeter ;
+
+
+delimeter //
+create procedure pqr()
+begin 
+	declare x int(4);
+	set x = abc();
+	insert into tempp values(x,'After abc');
+end; //
+delimeter ;
+
+
+*	unlike procedure , a funct can't be called by itself , because a 
+	function return a value , and that value has to be stored somewhere
+
+*	therefore you will have to equate the function with a variable , or
+	it has to be a part of some expression.
+
+-------------------------------------------------------
+
+delimeter //
+create function abc(y int(4))
+return int
+deterministic
+begin
+	return y*y;
+end; //
+delimeter ;
+
+delimeter //
+create procedure pqr()
+begin 
+	declare x int(4);
+	set x = abc(10);
+	insert into tempp values(x,'After abc');
+end; //
+delimeter ;
+
+
+==============================================================
+**************************************************************
+**************************************************************
+*Interview ques :- diffence between function and procedure.  *
+*							     *		
+*	STORED FUNCTIONS CAN BE CALLED IN SELECT STATEMENT.  *	
+*	STORED FUNCTION CAN BE CALLED IN DML COMMANDS ALSO   *
+*							     *	
+*	Select abc(10) from dual;			     *
+*	Select abc(sal) from emp;			     *
+*							     *	
+**************************************************************
+**************************************************************
+More Point covered in (Day 14_Procedure Vs Function) text file.
+===============================================================
+
+    EMP				  TEMPP
+
+ENAME   SAL			FIR	SEC
+-----	----			----	---
+KING	9000
+
+
+
+
+delimeter //
+create function abc(y int(4))
+return boolean
+deterministic
+begin
+	if y > 5000 then
+		return TRUE;
+	else
+		return FALSE;
+	end if;
+end; //	
+delimeter ;
+
+
+delimeter //
+create procedure pqr()
+begin
+	declare x int(4);
+	select sal into x from emp where ename = 'KING';
+	if abc(x) then
+		insert into tempp values (x, '> 5000');
+	else
+		insert into tempp values (x, '<= 5000');
+	end if;
+
+end ; //
+delimeter ;
+
+
+*	if funct return boolean value then you can directly use the
+	funct name as a condition for IF statement.
+*	a funct is normally used as a validation , a funct is normally
+	used for chacking purposes, a function normally returns a boolean TRUE
+	or FLASE value , accordingly some future processing is to be undertaken.
+
+----------------------------------------------------------------------------------
+
+to see which all functiona are created :-
+
+show function status;
+(shows all the function in all the databases)
+
+show function status where db = 'Dipesh';
+(shows all the function in Dipesh databases only)
+
+show functions status where name like 'A%';
+
+
+to view the source code of stored function :-
+
+show create function abc;
+
+
+to share the function with other users:-
+
+
+Dipesh_mysql> grant execute on function abc to lata;
+
+lata_mysql> select Dipesh.abc() from dual;
+
+Dipesh_mysql> revoke execute on function abc from lata;
+
+====================================================================
+
+	( V....IMP Topic )
+
+
+***************************************
+********** Database Trigger ***********
+***************************************
+
+*	Stored Object
+*	Object that are stored in databse.
+	e.g. Create.....table , indexes,view, procedures , functions. 
+	e.g. Create.....
+
+
+	EMP			    DEPTOT		   TEMPP
+ENAME	SAL	DEPTNO		DEPTNO	SALTOT		FIR	SEC
+-----	----	------ 		------	------		----	----
+ A	5000	  1		  1	 15000      	
+ B	5000	  1		  2	 6000
+ C	5000	  1
+ D	3000	  2
+ E	3000	  2
+
+
+
+*	triggers are present in some of RDBMS.
+
+*	Routine(set of commands) that gets executed
+	Auromatically whenever some EVENT take place. 
+
+*	Triggers are written on tables
+	
+*	Events are :- 
+	Before Insert , After Insert
+	Before Delete , After Delete
+	Before Update , After Update 
+
+----------------------------------------------------
+Insert trigger on emp table:-
+---------------------------
+
+delimeter //
+create trigger abc
+before insert 
+on emp for each row
+begin
+	insert into tempp values (1,'Inserted');
+end; //
+delimeter ;
+
+
+Uses :-
+
+*	MAintain logs (audit trails) of insertions.	
+*	All triggers are at Server level
+	(you can perform the DML operation using any
+	front-end software , the trigger will always execute)
+
+*	In MySQL , all triggers are at Row level
+	(will fire for each row)
+
+*	If DML operation on table is failing then the changes made
+	by thetrigeer are automatically ROLLBACK. 
+
+*	If trigger is failing then the DML operation on table is
+	automatically rollback.
+	
+*	Your data will be constitent.
+
+*	Within the trigger , you can have any processing
+	(all MySQL - PL statements are allowed 
+	e.g. loops, cursors, etc.) 
+
+
+delimeter //
+create trigger abc
+before insert 
+on emp for each row
+begin
+	insert into tempp values (new.sal,new.ename);
+end; //
+delimeter ;
+
+
+*	new.sal, new.ename , new.deptno are MySQL created variable.
+
+Uses :-
+*	You can maintain 2 or more copies of the table at the 
+	time of insert(automatic data duplication or mirroring)
+	(for testing purposes)
+
+*	This concept is knows as 'Data cleansing
+	(Before insert)
+
+
+
+delimeter //
+create trigger abc
+before insert 
+on emp for each row
+begin
+	update deptno set saltot = saltot + new.sal
+	where deptno = new.deptno;
+end; //
+delimeter ;
+
+
+uses :-
+*	automatic updation of related tables.
+
+-------------------------------------------------
+Delete trigger on emp:-
+
+delimeter //
+create trigger pqr
+before delete 
+on emp for each row
+begin
+	insert into tempp values (1,'Deleted');
+end; //
+delimeter ;
+
+------------------------------------------------
+
+delimeter //
+create trigger pqr
+before delete 
+on emp for each row
+begin
+	insert into tempp values (old.sal,old.ename);
+end; //
+delimeter ;
+
+*	old.ename, old.sal , old.deptno are MySQL created variables.
+
+Uses :-
+
+*	to implement Recycle bin in the event of delete.
+----------------------------------------------------------------------
+
+delimeter //
+create trigger pqr
+before delete 
+on emp for each row
+begin
+	update deptot set saltot = saltot - old.sal
+	where deptno = old.deptno;
+end; //
+delimeter ;
+
+-----------------------------------------------------------
+
+show triggers;
+(it will show all triggers from all DB)
+
+show triggers from[db_name];
+show triggers from Dipesh;
+(it will show all triggers in Dipesh DB only )
+
+
+drop trigger pqr;
+
+*	if you drop the table , the associated indexes and triggers
+	are dropped automatically.
+
+*	In the update trigger, you can use both :-
+	OLD and NEW set of variables.	
+
+*	Inside the trigger , you cannot perform any DML operation on
+	the same table (you will get an error of Mutating Tables) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
