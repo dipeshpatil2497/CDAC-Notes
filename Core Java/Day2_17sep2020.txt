@@ -1,0 +1,170 @@
+Main Method () : -
+*	Initial point of the java prg
+
+Syntax :
+public static void main (String args[]) {}
+
+*	public static : - Method modifiers
+*	void : - return type
+*	main : - Method name
+*	(String args[]) : - Method parameter.
+--------------------------------------------------------------------------
+What changes allowed with main method : -
+
+*	static public void main (String args[]) {}
+*	static public void main (String []args) {}
+*	static public void main (String... args) {}
+*	static public void main (String  dipesh[]) {}
+--------------------------------------------------------------------------
+What changes Not allowed with main method : -
+
+*	static void public main (String  args[]) {}
+		``````````
+*	static public void Main (String  args[]) {}
+		          ```````
+*	static void public  main (String  args) {}
+	                    `````````	``````
+===================================================
+Print method : -
+*	To print data on console
+
+Syntax : -
+System.out.println("Hello");
+
+*	System : - System is an inbuilt java class defined
+		in java.lang package.
+*	out : - out is public static final reference variable
+	              of java.io.PrintStream type		
+*	println() :- println() is method of PrintStream class.
+		  It prints given text to console window.
+
+*	"System" is class and we are accessing "out" variable of "System" class
+	"out" is reference variable which is referencing "println" object.		
+===============================================================
+What is Relation between filename and classname ? 
+
+*	filename and classname may be different
+*	If in source file , Any class is declear as public 
+	then name of file and class should be same.
+	(In one source file , more then one public class are not allowed)
+================================================================
+DATA TYPES IN JAVA : -
+----------------------------
+*	User-defined data type
+*	primitive data type
+----------------------------------------------------------------------------
+*	USER DEFINED DATA TYPES : -
+	1. Array
+	2. Class
+	3. Interface
+	4. Enum
+-----------------------------------------------------------------------------
+*	PRIMITIVE DATA TYPES : - 
+	1. Boolean type [boolean (size is not applicable)]
+	2. Numeric types
+		i. Integral type
+			a. Character type [char 2 bytes]
+			b. Integer type [ bytes(1 bytes), short (2 bytes), int (4 bytes), long (8 bytes)]
+		ii. Floating Point type [float(4 bytes) , double(8 bytes)]
+			
+*	How many primitive data types in java :- 
+	1. Boolean     2. char    3. byte	   4. short	    5. int
+	6. long	7. float	8. double
+------------------------------------------------------------------------------------
+*	float variable followed by F or f
+	e.g float f = 45.50F;
+
+*	double variable followed by D
+	e.g double d = 75.50D;
+	(But it's not mandetory)
+	(Bcoz every decimal no is bydeault double)
+	e.g. double d = 75.50;
+
+*	long variable followed by L
+	e.g  long l = 999999999L; 
+==================================================================
+TYPES CASTING : -
+----------------------
+*	Conversion from one data type to another 
+	data type.	
+
+*	Premitive type casting : 
+	[Possible only with numeric primitive]
+
+	-----------------> Up casting [ smaller to bigger]  [ implicit ]
+
+	byte ----->short----->|
+			     | ---> int ---> long ----> float ---> double
+		char------>|
+
+	<----------------- Down casting [bigger to smaller]  [explicit]
+
+*	Up  casting : -
+	Smaller datatype to bigger datatype
+	it will happen inplicitly
+	e.g. int b = 12;    
+	          long i  = b;
+
+*	Down casting : -
+	Bigger datatype to Smaller datatype
+	it will happen explicitly
+	e.g  int j = 127;
+	         byte = (byte) j; 
+================================================================
+How to take Input From User in java : - 
+-----------------------------------------------
+1. SCANNER CLASS : -  
+	
+*	In-built java class that scans the given
+	resource for any String or Primitive value.
+	e.g. 
+	import java.util.Scanner ;
+	class Demo{
+		public static void main (String args[]){
+			Scanner sc = new Scanner (System.in);
+			System.out.println("Enter Your Name : ");
+			String name =  sc.next();
+			System.out.println("Welcome "+name);
+		}
+	}
+
+*	System.out = Print Output.
+*	System.in = Take input from user.
+*	Scanner Class Method :-
+	-- Boolean : nextBoolean()
+	-- byte : nextByte()
+	-- short : nextShort()
+	-- int : nextInt()
+	-- long : nextLong()
+ 	-- float : nextFloat()
+	-- double : nextDouble()
+	-- String : next()  [without space] 
+	-- String : nextLine() [with space]
+--------------------------------------------------	---------------------------------------------------
+2. COMMAND LINE AGRUMENTS : -
+*	Agruments (values) given with run commad.
+
+	class Demo{
+		public static void main (String args[]){
+			String name = args[0];
+			System.out.println(name);			
+		}
+	} 
+
+Procedure to run command line args program : -
+>javac Demo.java
+>java cmdArgs <name(String)> 
+    e.g.
+    java cmdArgs Dipesh
+    java cmdArgs "Dipesh Patil" (if you want to enter 2 or more words , put it in "")
+===========================================================
+
+
+
+
+
+
+
+
+
+

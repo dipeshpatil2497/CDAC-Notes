@@ -1,0 +1,49 @@
+Scroller ResultSet :-
+-----------------------
+
+-----------------------------------------------------------------
+Java bean class : -
+---------------------
+
+*	Also known as : -
+	POJO : - Plain Old Java Object.
+	DTO : - Data Transfer Object.
+
+*	A simple java class which is having private properties
+	and public getter setter method in it , is called java bean class.
+
+
+*	DAO class [Data Access Object]
+
+*	ServiceClasses : - 
+	To write the app logic.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

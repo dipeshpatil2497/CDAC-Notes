@@ -1,0 +1,73 @@
+Switch Case : -
+-------------------
+Switch case syntax :
+
+switch (char | byte | short | int | enum | String expression){
+	case label1 :
+		statement 1 ;
+		break;
+	case label2 : 
+		statement 2 ;
+		break;
+	------------- :
+
+	------------- :
+
+	default : 
+		statement ; 
+}
+
+*	BREAK is not compulasory to add in cases . 
+----------------------------------------------------------------------------------------
+LOOPS IN JAVA : -
+--------------------
+*	For loop
+	Syntax : 
+	for(initialization ; condition ; increment) { }
+
+*	While
+*	do..while
+================================================
+Array in java : - 
+------------------
+
+*	Array is an indexed collection of similar data element than
+	fixed size.
+*	Array is an object 
+*	Make array : 1 declear array varible 2. create array
+*	Array decleration syntax : 
+	<element-type> <array-name> [] ;
+		OR
+	<element-type> [] <array-name> ;
+
+*	array creation syntax :
+	<element-type> <array-name> = new <element-type> [size];
+	e.g.    int arr =  new int [5]; 
+
+*	array decleartion and creation can be combined
+	<element-type> <array-name> [] = new <element-type> [size];
+	e.g.   int arr [] = new int [5];  
+
+*	Array initialization :
+	syntax : 
+	<element-type> <array-name> [] =  { val1 , val2 , val3};
+	e.g.  int arr []  ={10, 20, 30};
+		OR
+	<element-type> <array-name> [] = new <element-type> [] { val1, val2, val3};
+	e.g.  int arr [] = new int [] {10, 20, 30};
+-----------------------------------------------------------------------------------------------------------------
+Array Traversing or iterating : - 
+--------------------------------------
+
+*	for each loop [ advance array ]
+	------>  for traversing any collection
+	syntax : -
+	for (<element-type> <variable> : <collection-name>) { }
+	e. g . 
+	for (int a : ar) { }
+	
+
+
+
+
+

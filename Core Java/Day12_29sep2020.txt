@@ -1,0 +1,63 @@
+Collection Framework : -
+------------------------------
+*	A framework is Set of classes OR Group	 of classes.
+	to create dynamic collection to store similar or
+	dis-similar data elements.
+*	Only object can be Stored , primitive value can't
+	be stored.
+			
+*		Collection   ( i )
+	                   /	\
+	               / 		   \    
+	       List ( i )	Set ( i )
+	   /        \		    /     \
+         ArrayList     Linklist       HashSet    TreeSet	
+	(c)         (c)              ( c )|                ( c )
+			 		 |
+		      		LinkedHashSet
+				( c )
+
+	 i : - Interface 
+	c : - class
+
+------------------------------------------------------------------------------------------
+*	List : - 
+	Feature : 
+		1. Element can be repeated.
+		2. index can used to manage Element 
+		3. element can be maintain by insertion order.
+
+	ArrayList : -
+		Methods of ArrayList :-
+		Collection a = new ArrayList();
+		a.add("Dipesh");
+		a.remove("Dipesh");
+		a.addAll(a1);
+		a.removeAll(a1);
+		a.retainAll(a1);
+
+		Traversing : -
+		foreach loop
+		iterator();
+
+	List : -
+		listIterator ();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

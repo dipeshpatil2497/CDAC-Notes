@@ -1,0 +1,150 @@
+	CORE JAVA
+============================================= 
+*	JAVA is Extension of C / C++ Language.
+*	JAVA is Object Oriented Programming language.
+*	JAVA is a Popular programming language, created in 1995.
+*	It is open-source and free
+*	It is secure, fast and powerful
+*	It has a huge community support (tens of millions of developers)
+*	Java is an object oriented language which gives a clear structure to 
+	programs and allows code to be reused, lowering development costs.
+
+==============================================
+It is used for:
+
+*	Mobile applications (specially Android apps)
+* 	Desktop applications
+* 	Web applications
+* 	Web servers and application servers
+*	Games
+*	Database connection
+*	And much, much more!
+
+==============================================
+
+JAVA FEATURE : -
+----------------------------
+1 .=> Platform indenpendency
+
+Platform : - Combination of machine and OS.
+
+For Platform indenpendency : -
+OAK : New lang
+
+Editor
+source code
+complier
+byte code [ jvm (java virtual machine) ] 
+
+*	OAK + Some More Modification  =  JAVA lang   
+
+2 .) =>
+*	Unicode in C++
+*	Using java we can create Multinational application.
+	(Which mean we can create application in any lang)
+
+
+3.) => More Reliable
+           (Code check at compiler level as well as runtime level also)   
+
+4.) => Secure
+         Java does not support Pointer .
+         So , We can't get exact address of any variable. 
+
+          Java have pre-defined libery for encerption/decerption
+          of code and then we can share data between many devices.
+
+5.) => Multi-Threaded
+           (Mutli-Tasking) (Multi-Programming)
+
+           
+-----------------------------------------------------------------------------
+
+As JAVA is OOP language
+
+it support : -
+
+1. Abstraction : - It will hide complexsity and shows only
+                               essensial things.
+
+2. Polymorphism : - one thing use for multiple purpose.
+	i ) Compile-time Polymorphism
+		* Method Overloading
+	ii) Run-time Polymorphism
+		* Method Overridding
+
+3 . Encapsulation : - Binding of [ Data / Variable ] and 
+                                    [ Code / Method / Function ] Together.
+
+
+4 . Inheritance : - One object acquired properties of another object.
+
+-----------------------------------------------------------------------------------------------------
+
+
+JDK : [ Java Development Kit]
+- - Lib
+- - Compiler
+- - JRE [ Java runtime Enviroment ]
+	- - Lib
+	- - JVM [ Java Virtual Machine ]
+		- - Class Loader
+		    ( loads bytes code to jre )	
+		- - Interpreter
+		    (converts byte code into exeuatable code )
+
+
+* 	C is much faster then Java
+	( Bcoz in java , code get converted into byte code first
+	 and then execute it so it will take time for execuation)
+
+*	To achevie more efficiency there is JIT mechanism we uesd.
+	JIT [ Just In Time ] : - Convert that much code which we want 
+			    to execute instead of converting total code . 
+
+---------------------------------------------------------------------------------------------------------------
+JAVA Program Flow : -
+----------------------------
+
+Source code - - -Compiler -  - >  Byte code - - run(jvm)- - > exe code
+   ( .java )	    ( java compiler)    ( .class )                                ( .exe )
+
+---------------------------------------------------------------------------------------------------------------
+To run java program : -
+--------------------------
+
+Steps : -
+
+1. Open Notepad (create file and save it)
+2. While saving file give name of file with
+     ( .java ) extension and select file type " all file " .
+3. In file , Create class with same file name .
+
+filename : Hello.java
+
+class Hello{
+	public static void main(String args[]){
+		System.out.println("Hello java");
+	}
+}
+
+4. In Terminal ,Go to the location of that file first and then 
+      run the code using followling commands .
+/ *
+	compilation cmd
+	> javac <sourcefile> 
+	e.g javac Hello.java
+
+	run cmd
+	> java <classname>
+	e.g java Hello 
+*/
+-----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,72 @@
+Marker interface : -
+--------------------------
+
+*	An interface without any Method .
+*	It is also known as :
+	-- Empty interface
+	-- Utility interface
+	-- Tag interface
+------------------------------------------------------------
+Static Method interface : -
+--------------------------------
+default method in interface
+--------------------------------------------------------------------------
+Functional interface : -
+
+*	An interface that has only one abstract  method.
+---------------------------------------------------------------------------
+Nested classes : -
+*	Class in another class
+	OR
+	class within a class
+
+*	Types of class : -
+	1 . Static class : belong to class
+
+	2.  Non-Static class : belongs to objects
+	3. Local class : declard in any method.
+	4. Anonymous class : a class without name.
+
+*	1 type of class related to class
+	And
+	2,3,4 type of class related to object , 
+	it known as inner class.
+--------------------------------------------------------------------------
+FUNCTIONAL PROGRAMMING : -
+------------------------------------------
+*	Functional Programming  : - 
+	if we pass variable with LOGIC to any method ,
+	it known as Funct progaramming .
+
+*	used to  increase performance of code.
+*	one method can do many functionality.
+
+We Can do Functional Programming using two way : -
+1. LAMBDA EXPRESSION : -
+*	Syntax :
+	(<parameter>) - > {<function body> }
+
+*	lambda expression use functional interface only.
+	(Functional Interface : - the interface which is having
+			           only one abtract function. )
+
+2. METHOD REFERENCE : -
+*	Syntax :
+	create function(static or non-static) 
+	<classname> : : <functionname>
+
+-------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+

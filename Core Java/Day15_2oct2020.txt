@@ -1,0 +1,30 @@
+Multi-threading : -
+----------------------
+
+*	Threads : - 
+		A light weight process.	
+		Thread is an object of Thread class in java
+
+*	Threads Life Cycle / State : - 
+
+		   ( Blocked )
+		     /              \
+	                       /                      \
+( new )------->( runnable )-------->( running) ------->( dead )
+
+*	Ways to create thread
+	1. by implementing runnable interface
+	2. by extending Thread class
+
+*	Method used in threading : -
+	1. run();
+	2. start();
+	3. sleep();
+
+
+
+
+
+
+
+

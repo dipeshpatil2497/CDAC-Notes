@@ -1,0 +1,25 @@
+compareTo Method : -
+-----------------------------------------------------------------
+comparator() Method : -
+-----------------------------------------------------------------
+stream :  -
+-----------------------------------------------------------------------------
+Map : 
+-------
+
+*	A collection that store elements in key : value pair
+	-- Keys are unique	
+	-- Values can be  repeated.
+
+		Map
+
+	HashMap		TreeMap
+    
+         LinkedHashMap
+
+*	HashMap : 
+	Elements are stored randomly.
+*	LinkedHashMap : 
+	Elements are stored on basis of insertion order.
+*	 TreeMap :
+	Elements are stored on basis of sort order of keys. 

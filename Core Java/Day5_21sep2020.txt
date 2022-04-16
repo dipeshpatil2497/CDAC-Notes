@@ -1,0 +1,92 @@
+THIS  Keyword : - 
+---------------------
+*	'this' is keyword that differentiate between 
+	 Data Member and Function Parameter .
+*	'this' is also gives us a reference value of 
+	  object or current object of any class . 
+
+------------------------------------------------------------------------------
+Array of Objects : -
+
+*	Array of object is collection of reference values 
+	of objects.
+
+----------------------------------------------------------------------------
+Static and instance variable : - 
+-------------------------------------
+
+*	Static : belongs to class 
+	[can be accessed using class name]
+	[ can be accessed without creating object]
+	[no need to create object to access static variable or method]
+
+*	Instance : belongs to object
+	[need object to access instance member]	
+------------------------------------------------------------------------------------
+CONSTRUCTOR : -
+
+*	Constructor is a special type of method that has 
+	same name as class name and no return type.
+*	Constructor are used to initialize the object.
+
+*	Types of constructor supported in java :-
+	a. Parameterless Constructor : A constr without any parameter.
+	b. Parametrized Constructor : A constr with parameter.
+	c. Default Constructor : If user donesn't create any constr then complier
+			        create one parameterless constr which is called 
+			        default constructor.
+
+*	There is NO 'COPY CONSTRUCTOR' thing in JAVA
+	[ There is one inbuilt method for that in JAVA which
+	    is 'clone' Method ] 
+
+*	this() construct : to call one constructor from
+ 			another consturctor within same class only.		               
+-------------------------------------------------------------------------------------------------------------
+METHOD OVERLOADING : - 
+--------------------------------
+*	Creating more than one methods using same name but
+	[ different parameter list]
+	OR
+	[ diferent no. of parameters ]
+	OR
+	[ different type of parameters ]
+	OR
+	[ different order of parameters ] 
+------------------------------------------------------------------------------------------------
+INHERITANCE IN JAVA :-
+-----------------------------
+
+*	Inheritance is a process in which an object acquired 
+	the properties of another object.
+*	Inheritance provides code reusability in the app
+*	Types of Inheritance Supported in java : -
+	1. Single Inheritance : - If we have one super class and one sub-class
+			         then it is single inheritance. 
+	2. Hierachycal Inheritance : - If we have one super class and Multi
+			                       sub-class then it is Hierachical inheritance.
+	3. Multilevel Inheritance : - if we have one class which is super and 
+			                  sub-class both then it called Multilevel
+			                   inheritance.
+
+*	Super class : A class which gives access to use properties
+		       to other classes, that type of classes are 
+		        Super class.
+*	Sub-class : A class which inherite(use) properties of any
+		   other class that class is Sub-class.
+
+*	EXTENDS keyword is used with sub-class to inherite properties
+	with super class .
+	e.g. 
+	class Employee{}
+	class Manager extends Employee {}
+
+*	Employee is Super class and Manager is Sub-class.  
+----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+

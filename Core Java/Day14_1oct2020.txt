@@ -1,0 +1,87 @@
+Java IO : -
+------------
+*	Uses Streams to do the read and write from/to
+	persistent area.
+
+*	Stream : - flow of data from any input device to java 
+		app or from java app to any output device.
+	
+		Stream classes
+		   /                 \
+		/	     \
+   	Byte Stream	character Stream
+
+*	File class : -  A class that is abstraction(representation)
+ 		      of any file or directory on the PC (file System)
+
+		    To provides properties of file or directory.		    
+
+*	FileOutputStream : -
+	-- bytestream class
+	-- used to write bytes to any file.
+
+*	FileInputStream : -
+	-- read byte
+-------------------------------------------------------------------------
+Serialization : -
+----------------------
+
+*	Serialization is a process to save the state of 
+	any object to any persistant area (like file).
+
+*	Serialization is done use ObjectOutputStream class. 
+
+*	An object is an serializable it it's class implements
+	java.io.serializable marker interface.
+---------------------------------------------------------------------------------------------
+De-serialization : -
+------------------------
+*	De-serialization is the inverse process of 
+	serialization  in which objwct is cerated using
+	seriliazation.
+*	Using ObjectInputStream class. 
+
+-------------------------------------------------------------------------
+FileWriter : -
+---------------
+*	character Stream to write  character to the file
+
+FileReader : -
+---------------
+*	character Stream to read character form the file
+ 
+--------------------------------------------------------------------------------------
+BufferedWriter : -
+---------------------
+*	Character stream that can write data in group
+
+BufferedReader : -
+-------------------------
+*	Character stream that can read complete line  
+	from file.
+------------------------------------------------------------------------------
+InputStreamReader : - 
+---------------------------
+*	
+
+--------------------------------------------------------------------------------
+Channel  : -
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,25 @@
+Package : - 
+--------------
+
+*	Grouping Similar Classes.
+*	Package com.std
+	javac -d <filepath> <filename>  ---> Compiling cmd
+	java 
+
+jar file [ java archieve file]
+*
+
+-------------------------------------------------------------------------------
+ACCESS MODIFIRE IN JAVA : -
+
+1. Private [Within class only]
+2. Default [Within package only]
+3. Protected [Within package , classes and subclass]
+4. Public [Everywhere]
+------------------------------------------------------------------------------
+
+ANNOTATION : -
+
+*	Syntax : -
+	@<annotation-name > (<attributes>)
+ 

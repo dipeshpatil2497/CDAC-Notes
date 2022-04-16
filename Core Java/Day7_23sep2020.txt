@@ -1,0 +1,71 @@
+Polymorphism : -
+---------------------
+
+*	One Entity use for multiple purpose.
+
+*	Compiler time Polymorphism OR early Binding OR 
+	Static Binding :-
+	-- Binding of function call with function at compile		
+	     time , that is Compiler  time Polymorphism.
+
+*	RunTime Ploymorphism OR Late Binding OR 
+	Dynamic Binding OR Dynamic Method Dispitch : -
+	-- Binding of function call with function at runtime		
+	     time , that is Run time Polymorphism.
+-----------------------------------------------------------------------------------------
+Method Hiding : -
+---------------------  
+
+*	Superclass Method hinding subclass Method and vice versa.
+*	Method is called on the basis of reference variable
+	instead of Calling on basis of Object.
+
+*	We can achieve Method hinding with 
+	STATIC METHOD Only.	
+--------------------------------------------------------------------------
+FINAL : -
+---------
+
+*	Its keyword to finalise things.
+
+*	final variable : - constant variable.
+
+	final method : - constant method 
+		             (cannot override final method in subclass)
+
+	final class : - constant class
+		        (cannot extends/inhrits final class in subclass)
+-----------------------------------------------------------------------------------------------
+ABSTRACTION : -
+
+*	Hinding internal things and showing only essential
+	things.	
+
+*	To achieve Abstraction using "Abstract class" And "Interface".
+
+*	Abstarct class : -
+	1. Using abstract class we can achieve abstraction.
+	2. Abstract class can have abstract method or concreate method or both.
+	     (abstract method :- method declear with abstract keyword before method)
+	     (concreate method : - this a normal method has we create normally. )
+	3. Abstract class cann't be instantiated(cannot create object) 
+
+
+*	Interface : 
+	A way to achieve abstraction in java
+	-- interface cannot  be instantiated
+	-- if any class inherites any interface then class
+	    must override all abstract method of the interface.
+	-- it makes multiple inheritance poosible 
+
+	-- all interface methods are by default abstract
+	     and public.
+	     e.g. public abtract void show ();
+
+	-- all variables declear inside interface  are bydefault 
+	      public static final known as name constant.
+	      e.g.  public static final float pi = 3.14F;
+
+
+*	Different between Abtraction and interface : -
+	-- multiple inheritance is used in interface not in abtraction.

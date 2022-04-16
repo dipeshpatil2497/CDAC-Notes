@@ -1,0 +1,66 @@
+Reflections : -
+------------------
+-------------------------------------------------------------
+JDBC  : -
+----------
+
+*	Java Database Connectivity.
+
+*	User interface [ GUI ] : - code for user interaction.
+
+
+Front End Tech				Back End Tech
+[Write UI code & app logic]			[ to store and manage data]
+e.g  C, C++ , Java.....			E.g Oracle , MySql , ........
+----------------------------------------------------------------------------------------------------------------
+JDBC Driver : -
+------------------
+*	JDBC Drivers Types : - 
+	1. jdbc Odbc Bridge [object DB connectivity] [ only for practise no other used]
+	2. Java Native API [ We can used C/C++ also] [Slower driver]
+	3. Java Network Protocol [Multiple Different DB can connect]
+	4. Pure java [Pure Java code] [faster]
+-----------------------------------------------------------------------------------------------------------------
+execution : -
+---------------
+*	Execution of query statements
+	1. execute() : boolean
+		For DDL(data defination lang) query of DB's
+		OR For Callable statements .
+	2. executeUpdate() : int 
+		For DML(Data Manipulation lang)query of DB's
+		e.g. insert /update/delete queries.
+	3. executeQuery() : ResultSet
+		For DQL(Data Query lang) queries 
+		e.g. Select Query
+	
+----------------------------------------------------------------------------------------------------------------
+Query Statement : - 
+-------------------------------------
+*	Query Statement : - 	
+	1. Statement		createStatement()
+	2. PreparedStatement	prepareStatement();
+	3. CallableStatement	prepareCall()	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

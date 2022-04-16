@@ -1,0 +1,57 @@
+Synchronization : - 
+----------------------
+
+*	A Process in which only one threadcan execute at
+	time.
+
+*	Two ways to achieve sychronization.
+	1. synchronized Keyword.
+	2. synchronized Block.
+
+--------------------------------------------------------------------------------
+Thread Communication : -
+--------------------------------
+*	Method for Thread Communiation
+	-- wait();
+	-- notify();
+	Methods are from Object class
+--------------------------------------------------------------------------
+Priority Thread : -
+-------------------
+*	MaxPriority = 10
+	NormPriority = 5
+	MinPriority =  1
+
+-----------------------------------------------------------------
+Thread Grouping : - 
+----------------------
+*	Grouping of Threads to perform comman 
+	task on all threads.
+-----------------------------------------------------------------
+Thread Pooling : -
+----------------------
+*	Some Threads used for many task
+*	3 threads handling 7 task
+	(one by one at a time)
+	Th-1 : tk-1
+	Th-2 : tk-2
+	Th-3 : tk-3
+	Th-1 : tk-4
+	Th-3 : tk-5
+	Th-2 : tk-6
+	Th-1 : tk-7
+--------------------------------------------------------------------------
+Garbage Collector OR Demain Thread : -
+----------------------------------------------------
+
+*	To delete the allocated memory to any object.
+
+
+*	Reachable Object : - We can reach to object by using
+			 reference variable of that object.
+
+*	Non-Reachable Object : - We cannot reach to object by 
+			       using reference variable of that object.
+			       If we try to access object by using
+			      reference variable from outside of block
+			      then that object will be Non-reachable object. 

@@ -1,0 +1,67 @@
+Exception Handling : -
+----------------------------
+
+*	Throw : throw keyword used generate any  exception
+	                explicitly.
+
+	Syntax :
+		throw <Exception-object>;
+		e.g. 
+		throw new ArithmeticException(); 
+
+*	Thorws : - used to forward the checked exception.
+------------------------------------------------------------------------------------
+Variable Name args : -  
+*	Variable length arguments
+	-- can accept 0 or more values.
+	-- Syntax : -
+		<element-type> ... <parameter-name>   
+	-- it must be very last in the args list.
+	    e.g.
+	    void show (int... ar){}		<==Valid
+	    void show (char ch , int... ar){}	<== Valid
+	    void show(int... ar , char ch){}	<== Invalid
+	    void show (int... ar , int... ar2) {}	<==Invalid
+----------------------------------------------------------------------------------
+Enum : -
+
+*	A type where content are predefined
+
+	Syntax :
+		enum <enum-name>{
+			<enum contant-list> ;
+			 <variable>
+			 OR 
+			<method>
+			OR
+			<Constr>
+		} 
+-----------------------------------------------------------------------------
+WRAPPER CLASSES : -
+----------------------------
+
+*	Class that provides wrapper arround any primitive
+	value to make it an object.
+
+	Primitive types	|	wrapper class
+	      boolean	|	   Boolean
+	       char		|	   Character
+	        int 		|	    Integer
+	        byte		|	    Byte
+	        short		|	    Short
+	        long		|	    Long
+	        float		|	    Float
+	        double    	|	    Double
+
+*	Boxing : - primitive to wrapper
+*	Unboxing : - wrapper to primitive.
+
+-----------------------------------------------------------------------
+GENERICS : - 
+----------------
+
+*  genric class 
+--------------------------------------------------------------	
+
+
+

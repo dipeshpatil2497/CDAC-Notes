@@ -1,0 +1,64 @@
+Method Overriding : - 
+--------------------------
+*	Same method name 
+*	Same parameter list
+*	Same or colvarient return type
+*	Same or broader access controls
+*	Can be overridden only in sub-class
+*	Static , final and private methods can't be overridden.
+-------------------------------------------------------------------------------------
+Constructor behavior interm of Inheritance : -
+-------------------------------------------------------- 
+*	Sub-class constr (any type) always call super class
+	parameterless constr.
+*	First super class paraless constr execute then sub-class
+	contr will get execute
+*	This concept is also called "Chaining".
+	[means one constr call another constr(implicitly)]
+-------------------------------------------------------------------------------------------
+Super constr : -
+--------------------
+*	To call super class constr from sub-class constr.
+
+*	Super Keyword : reference subclass to superclass.
+-------------------------------------------------------------------------------------
+Reference-casting : -
+---------------------------
+
+1. Up-casting : - 
+*	subclass to super class.
+	e.g. Person p = new Employee();	// Up-casting
+	[Person is superclass and Employee is subclass]
+	Ref variable is of Person type but object is of Employee type.
+
+*	 up-casting call implicitly (automatically).
+
+2. Down-casting : - Super class to sub-class.
+		e.g. 
+		Person p = new Employee ();
+		Employee e = (Employee) p;	//down casting
+
+		we have do downcasting  explicitly (Manually or programatically).
+
+
+*	To use secure downcasting "instanceof" operator is used.
+	e.g.
+	for(Person a : ar ){
+		if(a instanceof Employee){
+			Employee e = (Employee) a;
+			e.getdept();
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
