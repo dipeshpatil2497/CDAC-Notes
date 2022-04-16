@@ -1,2 +1,0 @@
-Currency,String(5),k
-Rate,"Number(20,8)",V
